@@ -51,6 +51,13 @@ android {
 
 dependencies {
 
+    //Emoji dependencies
+    implementation(libs.androidx.emoji2)
+    implementation(libs.androidx.emoji2.bundled)
+    //icons
+    implementation (libs.androidx.material.icons.extended)
+
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
