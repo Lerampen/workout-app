@@ -35,6 +35,25 @@ import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
 
 @Composable
+fun StatsSection(modifier: Modifier = Modifier) {
+    Column( modifier = modifier
+        .padding(16.dp)
+        .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)) {
+
+        ActivityTitle()
+        HomeStats()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun StatsSectionPreview() {
+    WorkoutAppTheme {
+        StatsSection()
+    }
+}
+@Composable
 fun HomeStats(modifier: Modifier = Modifier) {
 
     Card(
@@ -128,11 +147,19 @@ fun StatItem(label: String, progress : Float, icon : ImageVector) {
 fun ActivityTitle(modifier: Modifier = Modifier) {
     Text(text = "Today's activity", fontFamily = robotoFontFamily, fontWeight = FontWeight.Medium )
 }
+
+@Preview(showBackground = true)
+@Composable
+private fun ActivityTitlePreview() {
+    WorkoutAppTheme {
+        ActivityTitle()
+    }
+}
 @Preview(showBackground = true)
 @Composable
 private fun StatsCardPreview() {
     WorkoutAppTheme {
-        ActivityTitle()
+
 
         HomeStats()
     }

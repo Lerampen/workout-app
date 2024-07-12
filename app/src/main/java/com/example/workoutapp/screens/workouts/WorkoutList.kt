@@ -1,21 +1,20 @@
-package com.example.workoutapp.screens.home
+package com.example.workoutapp.screens.workouts
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowForwardIos
-import androidx.compose.material.icons.outlined.ArrowForwardIos
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,31 +29,29 @@ import com.example.workoutapp.R
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
 
-@Composable
-fun WorkoutSection(modifier: Modifier = Modifier) {
-    TitleWorkout()
-    WorkoutCard()
-}
 
 @Composable
-fun TitleWorkout(modifier: Modifier = Modifier) {
-    Row{
-        Text(text = "Workout", modifier = Modifier.padding(horizontal = 16.dp))
-        Spacer(modifier = modifier.width(2.dp))
-        Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowForwardIos, contentDescription = "forward arrow")
+fun WorkoutList(modifier: Modifier = Modifier) {
+    val workouts = listOf("Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10" )
+
+    LazyColumn (modifier = modifier.fillMaxSize()){
+        items(workouts){ day->
+            ExerciseCard(day)
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun TitlePreview() {
+private fun WorkoutListPreview() {
     WorkoutAppTheme {
-        TitleWorkout()
+        WorkoutList()
     }
 }
 
 @Composable
-fun WorkoutCard (modifier: Modifier = Modifier) {
+fun ExerciseCard(day: String, modifier: Modifier = Modifier) {
+
     Card(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(8.dp),
@@ -79,7 +76,7 @@ fun WorkoutCard (modifier: Modifier = Modifier) {
             Spacer(modifier = modifier.width(8.dp))
             Column(verticalArrangement = Arrangement.Center, modifier = modifier.padding(vertical = 16.dp)) { // TODO: Day
                 Text(
-                    text = "Day 3",
+                    text = day,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = robotoFontFamily,
                     fontSize = 16.sp
@@ -93,13 +90,5 @@ fun WorkoutCard (modifier: Modifier = Modifier) {
                 )
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun WorkoutCardPreview() {
-    WorkoutAppTheme {
-        WorkoutCard()
     }
 }

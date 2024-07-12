@@ -36,7 +36,7 @@ fun TopPart(modifier: Modifier = Modifier) {
 @Composable
 fun ActivityStats(modifier: Modifier = Modifier) {
 
-    HomeStats()
+    StatsSection()
 }
 
 @Composable
@@ -50,3 +50,4 @@ fun MealsView(modifier: Modifier = Modifier) {
 
     MealsSection()
 }
+

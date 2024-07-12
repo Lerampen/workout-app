@@ -38,8 +38,8 @@ fun MealsSection(modifier: Modifier = Modifier) {
 @Composable
 fun TitleMeals(modifier: Modifier = Modifier) {
     Row{
-        Text(text = "Meals")
-        Spacer(modifier = modifier.width(4.dp))
+        Text(text = "Meals", modifier = Modifier.padding(horizontal = 16.dp))
+        Spacer(modifier = modifier.width(2.dp))
         Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowForwardIos, contentDescription = "forward arrow")
     }
 }
