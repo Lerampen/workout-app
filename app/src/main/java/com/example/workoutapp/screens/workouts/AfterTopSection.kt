@@ -56,7 +56,8 @@ fun TargetWorkouts(modifier: Modifier = Modifier) {
    LazyRow {
        items(items = targetWorkouts) { target ->
 
-           Card(modifier = modifier
+           Card(
+               modifier = modifier
                .height(50.dp)
                .wrapContentWidth()
                .padding(6.dp),
