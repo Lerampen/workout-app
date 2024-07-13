@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,8 +24,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -79,13 +78,15 @@ fun HomeStats(modifier: Modifier = Modifier) {
                 StatItem(
                     label = "Calories",
                     progress = 0.75f,
-                    icon = Icons.Outlined.Restaurant
+                    icon = Icons.Outlined.Restaurant,
+                    value = "1200 cal"
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 StatItem(
                     label = "Workout",
                     progress = 0.9f,
-                    icon = Icons.Outlined.FitnessCenter
+                    icon = Icons.Outlined.FitnessCenter,
+                    value = "40 Mins"
                 )
             }
 
@@ -98,13 +99,15 @@ fun HomeStats(modifier: Modifier = Modifier) {
                 StatItem(
                     label = "Water",
                     progress = 0.65f,
-                    icon = Icons.Outlined.WaterDrop
+                    icon = Icons.Outlined.WaterDrop,
+                    value = "1500 ml"
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 StatItem(
                     label = "Steps",
                     progress = 0.4f,
-                    icon = Icons.AutoMirrored.Outlined.DirectionsWalk
+                    icon = Icons.AutoMirrored.Outlined.DirectionsWalk,
+                    value = "1400 steps"
                 )
             }
         }
@@ -112,7 +115,7 @@ fun HomeStats(modifier: Modifier = Modifier) {
     }
 }
 @Composable
-fun StatItem(label: String, progress : Float, icon : ImageVector) {
+fun StatItem(label: String, progress : Float, icon : ImageVector, value : String) {
 
         Column(
             modifier = Modifier.padding(8.dp),
@@ -132,6 +135,7 @@ fun StatItem(label: String, progress : Float, icon : ImageVector) {
                     color = Color.Black,
                     trackColor = Color.LightGray,
                     strokeWidth = 8.dp,
+                    strokeCap = StrokeCap.Round
                 )
                 Icon(
                     imageVector = icon,
@@ -139,6 +143,13 @@ fun StatItem(label: String, progress : Float, icon : ImageVector) {
                     modifier = Modifier.size(32.dp)
                 )
             }
+            Text(
+                text = value,
+                fontSize = 16.sp,
+                color = Color.Black,
+                fontFamily = robotoFontFamily,
+                fontWeight = FontWeight.Medium
+            )
 
     }
 }

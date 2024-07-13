@@ -31,8 +31,8 @@ import com.example.workoutapp.ui.theme.robotoFontFamily
 
 @Composable
 fun MealsSection(modifier: Modifier = Modifier) {
-    TitleMeals()
-    MealsCard()
+    TitleMeals(modifier = modifier)
+    MealsCard(meal = "Eggs and Toast")
 }
 
 @Composable
@@ -53,7 +53,7 @@ private fun TitlePreview() {
 }
 
 @Composable
-fun MealsCard (modifier: Modifier = Modifier) {
+fun MealsCard (meal : String, modifier: Modifier = Modifier) {
     Card(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(8.dp),
@@ -78,7 +78,7 @@ fun MealsCard (modifier: Modifier = Modifier) {
             Spacer(modifier = modifier.width(8.dp))
             Column(verticalArrangement = Arrangement.Center, modifier = modifier.padding(vertical = 16.dp)) { // TODO: Day
                 Text(
-                    text = "Day 1",
+                    text = meal,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = robotoFontFamily,
                     fontSize = 16.sp
@@ -99,6 +99,6 @@ fun MealsCard (modifier: Modifier = Modifier) {
 @Composable
 private fun WorkoutCardPreview() {
     WorkoutAppTheme {
-        MealsCard()
+        MealsCard(meal = "Eggs & toast")
     }
 }
