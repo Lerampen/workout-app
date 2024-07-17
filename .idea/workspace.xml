@@ -9,36 +9,16 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6feab9a2-6077-45a8-ac72-90c0f695fa34" name="Changes" comment="completed payment screen">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/WorkoutApplication.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/data/AppDatabase.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/data/MealDao.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/model/AppModules.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/model/Meal.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/navigation/BottomNavItem.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/navigation/BottomNavigationBar.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/navigation/Screens.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/repository/MealRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/repository/MealRepositoryImpl.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/admin/Admin.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/admin/ContentItem.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/viewmodels/NutritionViewModel.kt" afterDir="false" />
+    <list default="true" id="6feab9a2-6077-45a8-ac72-90c0f695fa34" name="Changes" comment="added Hilt for dependency injection">
       <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/home/Home.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/home/Home.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/home/TopSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/home/TopSection.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/data/AppDatabase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/data/AppDatabase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/model/Meal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/model/Meal.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/home/MealsSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/home/MealsSection.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/nutrition/MealSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/nutrition/MealSection.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/nutrition/Nutrition.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/nutrition/Nutrition.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/nutrition/TopSectionNutr.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/nutrition/TopSectionNutr.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/payment/Payment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/payment/Payment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/payment/PaymentContent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/payment/PaymentContent.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/payment/TopSectionPay.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/payment/TopSectionPay.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/profile/Profile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/profile/Profile.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/profile/TopSectionProf.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/profile/TopSectionProf.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/workouts/TopBarSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/workouts/TopBarSection.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/workouts/Workout.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/workouts/Workout.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/viewmodels/NutritionViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/viewmodels/NutritionViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
     </list>
@@ -159,7 +139,7 @@
       <recent name="com.example.workoutapp.screens.payment" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin script (Beta).build.gradle.kts">
+  <component name="RunManager" selected="Android App.app">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="Workout_app.app.main" />
       <option name="DEPLOY" value="true" />
@@ -288,7 +268,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720887124840</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added Hilt for dependency injection">
+      <option name="closed" value="true" />
+      <created>1721204055855</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1721204055855</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -308,6 +296,7 @@
     <MESSAGE value="completed workout screen" />
     <MESSAGE value="completed nutrition and profile screen" />
     <MESSAGE value="completed payment screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="completed payment screen" />
+    <MESSAGE value="added Hilt for dependency injection" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Hilt for dependency injection" />
   </component>
 </project>

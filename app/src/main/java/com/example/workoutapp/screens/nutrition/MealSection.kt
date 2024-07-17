@@ -22,7 +22,7 @@ import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
 
 @Composable
-fun MealsSectionNutrition(modifier: Modifier = Modifier) {
+fun MealsSectionNutrition(modifier: Modifier = Modifier, ) {
     Row(
         modifier = modifier
             .fillMaxWidth()

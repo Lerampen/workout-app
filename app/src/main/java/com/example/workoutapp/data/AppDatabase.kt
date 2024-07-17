@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.workoutapp.model.Meal
 
-@Database(entities = [Meal::class], version = 1)
+@Database(entities = [Meal::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun mealDao(): MealDao
 

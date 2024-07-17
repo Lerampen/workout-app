@@ -53,6 +53,10 @@ android {
 
 dependencies {
 
+
+
+
+
     //Emoji dependencies
     implementation(libs.androidx.emoji2)
     implementation(libs.androidx.emoji2.bundled)
@@ -65,7 +69,8 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.runtime.livedata)
     annotationProcessor(libs.androidx.room.compiler)
-    kapt(libs.androidx.room.compiler)
+    kapt("androidx.room:room-compiler:2.6.1")
+
 //    hilt dependencies
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
@@ -84,7 +89,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.firebase.firestore.ktx)
-    implementation(libs.androidx.room.compiler)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

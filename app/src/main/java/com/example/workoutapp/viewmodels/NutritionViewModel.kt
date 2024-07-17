@@ -15,7 +15,7 @@ class NutritionViewModel(application: Application): AndroidViewModel(application
 
     private val repository: MealRepository
 
-   private val _allMeals = MutableStateFlow<List<Meal>>(emptyList())
+  private val _allMeals = MutableStateFlow<List<Meal>>(emptyList())
            var allMeals : StateFlow<List<Meal>> = _allMeals
     init {
         val mealDao = AppDatabase.getDatabase(application).mealDao()
@@ -41,5 +41,11 @@ class NutritionViewModel(application: Application): AndroidViewModel(application
             _allMeals.value = meals
         }
     }
+    // Function for setting sample data in preview
+    fun setSampleMeals(meals: List<Meal>) {
+        _allMeals.value = meals
+    }
+    val mealsTypes = listOf("Breakfast", "Lunch", "Dinner", "Snacks")
+
 
 }
