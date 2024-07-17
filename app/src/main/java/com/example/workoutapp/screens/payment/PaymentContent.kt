@@ -87,7 +87,7 @@ fun PaymentContent(modifier: Modifier) {
                 onClick = { paymentMethod = "Credit Card" },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (paymentMethod == "Credit Card ") Color.Black else Color.LightGray,
-                    contentColor = if (paymentMethod == "Credit Card") Color.White else Color.Black
+                    contentColor = if (paymentMethod == "Credit Card") Color.White else Color.White
 
 
                 )
@@ -98,18 +98,18 @@ fun PaymentContent(modifier: Modifier) {
                 onClick = { paymentMethod = "Debit Card" },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (paymentMethod == "Debit Card ") Color.Black else Color.LightGray,
-                    contentColor = if (paymentMethod == "Debit Card") Color.Black else Color.White
+                    contentColor = if (paymentMethod == "Debit Card") Color.White else Color.White
 
 
                 )
             ) {
-                Text(text = "Credit Card", fontSize = 12.sp, fontFamily = robotoFontFamily, fontWeight = FontWeight.Medium)
+                Text(text = "Debit Card", fontSize = 12.sp, fontFamily = robotoFontFamily, fontWeight = FontWeight.Medium)
             }
             Button(
                 onClick = { paymentMethod = "Mpesa" },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (paymentMethod == "Mpesa") Color.Black else Color.LightGray,
-                    contentColor = if (paymentMethod == "Mpesa") Color.Black else Color.White
+                    contentColor = if (paymentMethod == "Mpesa") Color.White else Color.White
 
 
                 )

@@ -1,5 +1,6 @@
 package com.example.workoutapp.screens.nutrition
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,20 +12,26 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.workoutapp.screens.home.MealsCard
 import com.example.workoutapp.screens.workouts.HorizontalList
 import com.example.workoutapp.screens.workouts.ListSection
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 
 @Composable
-fun Nutrition(modifier: Modifier = Modifier) {
+fun Nutrition(navController: NavController,modifier: Modifier = Modifier) {
 
     val meals = remember {
         mutableStateOf(listOf("Breakfast","Lunch","Dinner","Snacks"))
     }
+    //navigation for back button
+    BackHandler {
+        navController.popBackStack()
+    }
 
     Scaffold (
-        topBar =  { TopSectionNutr() },
+        topBar =  { TopSectionNutr(navController = navController) },
 
     ){paddingValues ->
 
@@ -50,7 +57,8 @@ fun Nutrition(modifier: Modifier = Modifier) {
 @Composable
 private fun NutritionPreview() {
     WorkoutAppTheme {
-        Nutrition()
+        val navController = rememberNavController()
+        Nutrition(navController = navController)
     }
 }
 

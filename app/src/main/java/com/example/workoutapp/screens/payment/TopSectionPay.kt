@@ -18,12 +18,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopSectionPay(modifier: Modifier = Modifier) {
+fun TopSectionPay(navController: NavController, modifier: Modifier = Modifier) {
     TopAppBar(
         // TODO:  Text(text = "Workout Screen" , textAlign = TextAlign.Center)
         title = {
@@ -46,7 +48,7 @@ fun TopSectionPay(modifier: Modifier = Modifier) {
 
         },
         modifier = modifier,
-        navigationIcon = { IconButton(onClick = { /*TODO*/ }) {
+        navigationIcon = { IconButton(onClick = { navController.popBackStack() }) {
             Icon(
                 imageVector = Icons.Outlined.ArrowBackIosNew,
                 contentDescription = "back arrow"
@@ -62,6 +64,7 @@ fun TopSectionPay(modifier: Modifier = Modifier) {
 @Composable
 private fun TopSectionPayPreview() {
     WorkoutAppTheme {
-        TopSectionPay()
+        val navController = rememberNavController()
+        TopSectionPay(navController = navController)
     }
 }

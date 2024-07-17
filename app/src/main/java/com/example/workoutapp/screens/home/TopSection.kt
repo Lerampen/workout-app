@@ -28,13 +28,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopSection(modifier: Modifier = Modifier) {
+fun TopSection(navController: NavController,modifier: Modifier = Modifier) {
     TopAppBar(
         // TODO:  Text(text = "Home Screen" , textAlign = TextAlign.Center)
         title = {
@@ -80,7 +82,8 @@ fun TopSection(modifier: Modifier = Modifier) {
 @Composable
 private fun TopSectionPreview() {
 
-    WorkoutAppTheme {
-        TopSection()
+    WorkoutAppTheme{
+    val navController = rememberNavController()
+        TopSection(navController)
     }
 }
