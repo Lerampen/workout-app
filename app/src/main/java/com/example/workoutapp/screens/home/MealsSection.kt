@@ -29,7 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.workoutapp.R
-import com.example.workoutapp.model.Meal
+import com.example.workoutapp.data.Meal
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
 

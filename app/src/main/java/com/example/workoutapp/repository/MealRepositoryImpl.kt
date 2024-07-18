@@ -1,6 +1,6 @@
 package com.example.workoutapp.repository
 
-import com.example.workoutapp.model.Meal
+import com.example.workoutapp.data.Meal
 import kotlinx.coroutines.flow.Flow
 
 interface MealRepositoryImpl {

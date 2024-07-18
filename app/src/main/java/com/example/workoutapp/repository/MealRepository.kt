@@ -1,10 +1,13 @@
 package com.example.workoutapp.repository
 
 import com.example.workoutapp.data.MealDao
-import com.example.workoutapp.model.Meal
+import com.example.workoutapp.data.Meal
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class MealRepository(private  val mealDao: MealDao) : MealRepositoryImpl {
+@ViewModelScoped
+class MealRepository @Inject constructor(private  val mealDao: MealDao) : MealRepositoryImpl {
     override fun getAllMeals(): Flow<List<Meal>> {
       return  mealDao.getAllMeals()
     }

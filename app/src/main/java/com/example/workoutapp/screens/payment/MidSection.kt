@@ -17,9 +17,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.workoutapp.screens.profile.MidSection
+import com.example.workoutapp.data.Payment
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import kotlin.time.toDuration
 
 @Composable
 fun MidSectionPay(modifier: Modifier = Modifier) {
@@ -38,6 +42,9 @@ private fun MidSectionPreview() {
 
 @Composable
 fun PaymentItem(payment: Payment) {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val dateString = dateFormat.format(Date(payment.timestamp))
+
     Card(
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(4.dp),
@@ -52,7 +59,7 @@ fun PaymentItem(payment: Payment) {
 
             Column {
                 Text(
-                    text = "Date: ${payment.date}",
+                    text = "Date: ${dateString}",
                     style = MaterialTheme.typography.bodyLarge,
                     fontSize = 16.sp,
                     fontFamily = robotoFontFamily,
@@ -60,7 +67,7 @@ fun PaymentItem(payment: Payment) {
                 )
 
                 Text(
-                    text = "Method: ${payment.method}",
+                    text = "Method: ${payment.paymentMethod}",
                     style = MaterialTheme.typography.bodyLarge,
                     fontSize = 16.sp,
                     fontFamily = robotoFontFamily,
@@ -82,6 +89,6 @@ fun PaymentItem(payment: Payment) {
 @Composable
 private fun PaymentItemPreview() {
     WorkoutAppTheme {
-        PaymentItem(payment = Payment(date = "2024-07-01", amount = "$50.00", method = "Credit Card"))
+        PaymentItem(payment = Payment(id = 12, amount = 99.99, paymentMethod = "Debit card", cardNumber = "0123456", cardHolderName = "Stacy Apeyon", timestamp = 1721322178449))
     }
 }

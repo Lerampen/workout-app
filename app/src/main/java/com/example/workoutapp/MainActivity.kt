@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -25,6 +26,7 @@ import com.example.workoutapp.screens.payment.Payment
 import com.example.workoutapp.screens.profile.Profile
 import com.example.workoutapp.screens.workouts.Workout
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
+import com.example.workoutapp.viewmodels.PaymentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -67,7 +69,8 @@ fun NavHostContainer(navController: NavHostController, modifier: Modifier = Modi
             Nutrition(navController = navController)
         }
         composable(Screens.Payment.route) {
-            Payment(navController = navController)
+            val viewModel = hiltViewModel<PaymentViewModel>()
+            Payment(navController = navController, viewModel = viewModel)
         }
         composable(Screens.Profile.route) {
             Profile(navController = navController)

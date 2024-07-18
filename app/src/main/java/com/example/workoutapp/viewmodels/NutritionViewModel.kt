@@ -3,23 +3,25 @@ package com.example.workoutapp.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.workoutapp.data.AppDatabase
-import com.example.workoutapp.model.Meal
+import com.example.workoutapp.data.Meal
 import com.example.workoutapp.repository.MealRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NutritionViewModel(application: Application): AndroidViewModel(application = application) {
-
+@HiltViewModel
+class NutritionViewModel @Inject constructor(
+    application: Application ,
     private val repository: MealRepository
+    ): AndroidViewModel(application = application) {
+
 
   private val _allMeals = MutableStateFlow<List<Meal>>(emptyList())
            var allMeals : StateFlow<List<Meal>> = _allMeals
     init {
-        val mealDao = AppDatabase.getDatabase(application).mealDao()
-        repository = MealRepository(mealDao)
 
         viewModelScope.launch{
             repository.getAllMeals().collect{ meals->

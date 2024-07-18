@@ -1,4 +1,4 @@
-package com.example.workoutapp.model
+package com.example.workoutapp.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
