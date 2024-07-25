@@ -23,76 +23,66 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.workoutapp.R
-import com.example.workoutapp.ui.theme.WorkoutAppTheme
+import com.example.workoutapp.navigation.Screens
 import com.example.workoutapp.ui.theme.robotoFontFamily
 
-
 @Composable
-fun WorkoutList(navController: NavController, modifier: Modifier = Modifier) {
-    val workouts = listOf("Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10" )
+fun ExerciseList(day :String, navController: NavController,modifier: Modifier = Modifier) {
+    val exercises = listOf(
+        Exercise("Exercise 1", R.drawable.pexels_ketut_subiyanto_5038833
+            , 10),
+        Exercise("Exercise 1", R.drawable.pexels_mastercowley_1300526, 10)
 
-    LazyColumn (modifier = modifier.fillMaxSize()){
-        items(workouts){ day->
-            ExerciseCard(day, onClick = {
-                navController.navigate("exercise_list/$day")
-            })
+    )
+
+    LazyColumn(modifier = modifier.fillMaxSize()) {
+        items(exercises){ exercise ->
+            ExerciseItem(exercise = exercise, onClick = {
+                navController.navigate("exercise_detail/${exercise.id}")
+            }, modifier = Modifier)
         }
-    }
-}
 
-@Preview(showBackground = true)
-@Composable
-private fun WorkoutListPreview() {
-    WorkoutAppTheme {
-        WorkoutList(navController = rememberNavController())
     }
 }
 
 @Composable
-fun ExerciseCard(day: String, onClick : () -> Unit, modifier: Modifier = Modifier) {
-
+fun ExerciseItem(exercise: Exercise, onClick: () -> Unit, modifier: Modifier) {
     Card(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(8.dp),
         modifier = modifier
             .padding(16.dp)
             .fillMaxWidth()
-            .clickable(onClick = onClick) // make the Card clickable
-    ) {
-
-        // TODO: Image
+            .clickable(onClick = onClick)
+    ){
         Row(modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp)){
+            .padding(horizontal = 8.dp)) {
             Image(
-                painter = painterResource(id = R.drawable.pexels_ketut_subiyanto_5038833),
+                painter = painterResource(id = exercise.exerciseIllustration),
                 contentDescription = null,
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(88.dp)
-                    .clip(RoundedCornerShape(8.dp)),
-
-                )
+                    .clip(RoundedCornerShape(8.dp))
+            )
             Spacer(modifier = modifier.width(8.dp))
-            Column(verticalArrangement = Arrangement.Center, modifier = modifier.padding(vertical = 16.dp)) { // TODO: Day
+            Column(modifier = modifier.padding(vertical = 16.dp), verticalArrangement = Arrangement.Center) {
                 Text(
-                    text = day,
+                    text = exercise.exerciseName,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = robotoFontFamily,
                     fontSize = 16.sp
                 )
-                // TODO: min & Exercise
                 Text(
-                    text = "10 Min . 10 Exercise",
-                    fontWeight = FontWeight.Normal,
+                    text = "${exercise.repetitions} Reps",
+                    fontSize = 16.sp,
                     fontFamily = robotoFontFamily,
-                    fontSize = 16.sp
+                    fontWeight = FontWeight.Normal
                 )
             }
         }

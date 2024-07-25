@@ -4,15 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,13 +16,19 @@ import androidx.navigation.compose.rememberNavController
 import com.example.workoutapp.navigation.BottomNavigationBar
 import com.example.workoutapp.navigation.Screens
 import com.example.workoutapp.screens.SignIn
+import com.example.workoutapp.screens.SignUp
+import com.example.workoutapp.screens.admin.AdminDashBoard
 import com.example.workoutapp.screens.home.Home
 import com.example.workoutapp.screens.nutrition.Nutrition
 import com.example.workoutapp.screens.payment.Payment
 import com.example.workoutapp.screens.profile.Profile
+import com.example.workoutapp.screens.workouts.ExerciseDetail
+import com.example.workoutapp.screens.workouts.ExerciseList
 import com.example.workoutapp.screens.workouts.Workout
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
+import com.example.workoutapp.viewmodels.LogInViewModel
 import com.example.workoutapp.viewmodels.PaymentViewModel
+import com.example.workoutapp.viewmodels.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,9 +58,23 @@ class MainActivity : ComponentActivity() {
 fun NavHostContainer(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
-        startDestination = Screens.Home.route,
+        startDestination = Screens.SignUp.route,
         modifier = modifier
     ) {
+        composable(Screens.SignUp.route){
+            val viewModel = hiltViewModel<SignUpViewModel>()
+
+            SignUp (onNavigateToLogin = { navController.navigate(Screens.Login.route) }, signUpViewModel = viewModel )
+        }
+        composable(Screens.Login.route){
+            val viewModel = hiltViewModel<LogInViewModel>()
+
+            SignIn(
+                onNavigateToSignUp = { navController.navigate(Screens.SignUp.route) },
+                navController = navController,
+                logInViewModel = viewModel
+            )
+        }
         composable(Screens.Home.route) {
             Home(navController = navController)
         }
@@ -74,6 +90,17 @@ fun NavHostContainer(navController: NavHostController, modifier: Modifier = Modi
         }
         composable(Screens.Profile.route) {
             Profile(navController = navController)
+        }
+        composable(Screens.ExerciseList.route) { backStackEntry ->
+            val day = backStackEntry.arguments?.getString("day") ?: "Day 1"
+            ExerciseList(day = day, navController = navController)
+        }
+        composable(Screens.ExerciseDetail.route) { backStackEntry ->
+            val exerciseId = backStackEntry.arguments?.getString("exerciseId") ?: "1"
+            ExerciseDetail(exerciseId = exerciseId)
+        }
+        composable(Screens.AdminDashboard.route){
+            AdminDashBoard( navController = navController)
         }
     }
 }

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -53,10 +54,6 @@ android {
 
 dependencies {
 
-
-
-
-
     //Emoji dependencies
     implementation(libs.androidx.emoji2)
     implementation(libs.androidx.emoji2.bundled)
@@ -69,14 +66,17 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.runtime.livedata)
     annotationProcessor(libs.androidx.room.compiler)
-    kapt("androidx.room:room-compiler:2.6.1")
+    kapt(libs.androidx.room.compiler)
 
 //    hilt dependencies
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
-
+    //firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
 
 
     implementation(libs.androidx.core.ktx)

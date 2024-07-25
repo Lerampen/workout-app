@@ -5,7 +5,12 @@ import androidx.room.Room
 import com.example.workoutapp.data.AppDatabase
 import com.example.workoutapp.data.MealDao
 import com.example.workoutapp.data.PaymentDao
+import com.example.workoutapp.repository.AuthRepository
+import com.example.workoutapp.repository.AuthRepositoryImpl
 import com.example.workoutapp.repository.PaymentRepository
+import com.example.workoutapp.repository.UserRepository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,6 +48,26 @@ class AppModules {
     @Singleton
     fun providePaymentRepository(paymentDao: PaymentDao) : PaymentRepository{
         return PaymentRepository(paymentDao)
+    }
+
+    @Singleton
+    @Provides
+    fun provideFirebaseAuth() = FirebaseAuth.getInstance()
+
+    @Singleton
+    @Provides
+    fun provideRepositortyImpl(firebaseAuth: FirebaseAuth, firestore: FirebaseFirestore) : UserRepository {
+        return UserRepository(firebaseAuth, firestore)
+    }
+    @Singleton
+    @Provides
+    fun provideAuthRepository(authRepositoryImpl: AuthRepositoryImpl): AuthRepository {
+        return authRepositoryImpl
+    }
+    @Provides
+    @Singleton
+    fun provideFirebaseFirestore(): FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
     }
 
 

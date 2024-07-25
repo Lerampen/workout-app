@@ -20,39 +20,53 @@ import com.example.workoutapp.ui.theme.robotoFontFamily
 fun BottomNavigationBar(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    // List of routes where the bottom navigation should be hidden
+    val hideBottomNavRoutes = listOf(
+        Screens.Login.route,
+        Screens.SignUp.route
+    )
 
-    NavigationBar(
-        containerColor = Color.White,
-        contentColor = Color.Black,
-        tonalElevation = 8.dp
-    ) {
-        bottomNavItems.forEach { screen ->
-            NavigationBarItem(
-                selected = currentRoute == screen.screens.route,
-                onClick = {
-                    if (currentRoute != screen.screens.route){
-                        navController.navigate(screen.screens.route){
-                            popUpTo(navController.graph.startDestinationId){
-                                saveState = true
+    // Check if the current route is in the list of routes then to hide the bottom navigation
+    if (currentRoute !in hideBottomNavRoutes) {
+        NavigationBar(
+            containerColor = Color.White,
+            contentColor = Color.Black,
+            tonalElevation = 8.dp
+        ) {
+            bottomNavItems.forEach { screen ->
+                NavigationBarItem(
+                    selected = currentRoute == screen.screens.route,
+                    onClick = {
+                        if (currentRoute != screen.screens.route) {
+                            navController.navigate(screen.screens.route) {
+                                popUpTo(navController.graph.startDestinationId) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
                             }
-                            launchSingleTop = true
-                            restoreState = true
                         }
-                    }
-                },
-                icon = {
-                    Icon(imageVector = screen.icon, contentDescription = screen.label )
-                       },
-                label = { Text(text = screen.label, fontFamily = robotoFontFamily, fontSize = 9.sp) },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = Color.Black,
-                    selectedTextColor = Color.Black,
-                    unselectedIconColor = Color.Gray,
-                    unselectedTextColor = Color.Gray
+                    },
+                    icon = {
+                        Icon(imageVector = screen.icon, contentDescription = screen.label)
+                    },
+                    label = {
+                        Text(
+                            text = screen.label,
+                            fontFamily = robotoFontFamily,
+                            fontSize = 9.sp
+                        )
+                    },
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = Color.Black,
+                        selectedTextColor = Color.Black,
+                        unselectedIconColor = Color.Gray,
+                        unselectedTextColor = Color.Gray
+                    )
+
+
                 )
-
-
-            )
+            }
         }
     }
 }

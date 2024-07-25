@@ -24,7 +24,7 @@ fun Workout(navController: NavController,modifier: Modifier = Modifier) {
 
         Column (modifier = Modifier.padding(paddingValues)){
             HorizontalList()
-            ListSection()
+            ListSection(navController = navController)
         }
     }
 
@@ -52,7 +52,7 @@ fun HorizontalList(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ListSection(modifier: Modifier = Modifier) {
+fun ListSection(modifier: Modifier = Modifier, navController: NavController) {
     // TODO: Lazy list section
-    WorkoutList()
+    WorkoutList(modifier = modifier, navController = navController)
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "956979364538",
+    "project_id": "workout-app-25fb9",
+    "storage_bucket": "workout-app-25fb9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956979364538:android:13e50d3c9c3b514737b883",
+        "android_client_info": {
+          "package_name": "com.example.workoutapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-SOu16nlq8fVVCQdXDOVVLMh7Gzr4L6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
