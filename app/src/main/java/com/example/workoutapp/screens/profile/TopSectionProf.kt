@@ -43,11 +43,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.workoutapp.R
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
+import com.example.workoutapp.viewmodels.ProfileViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -141,7 +143,7 @@ private fun ProfileImagePreview() {
 }
 
 @Composable
-fun MidSection(modifier: Modifier = Modifier) {
+fun MidSection(modifier: Modifier = Modifier , navController: NavController, profileViewModel: ProfileViewModel ) {
     val context = LocalContext.current
     Column(
         modifier = Modifier
@@ -271,9 +273,9 @@ fun MidSection(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
                 modifier = Modifier.clickable {
-                    //  profileViewModel.signOut()
+                      profileViewModel.signOut()
                     Toast.makeText(context, "Logged Out Successfully!", Toast.LENGTH_SHORT).show()
-                    //navController.navigate("login_screen") // Update with your login screen route
+                    navController.navigate("login_screen") // Update with your login screen route
                 }
             )
         }
@@ -285,6 +287,8 @@ fun MidSection(modifier: Modifier = Modifier) {
 @Composable
 private fun MidSectionPreview() {
     WorkoutAppTheme {
-        MidSection()
+        val navController = rememberNavController()
+        val viewModel = hiltViewModel<ProfileViewModel>()
+        MidSection(navController = navController, profileViewModel = viewModel)
     }
 }

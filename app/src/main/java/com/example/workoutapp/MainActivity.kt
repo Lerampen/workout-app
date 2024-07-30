@@ -26,8 +26,10 @@ import com.example.workoutapp.screens.workouts.ExerciseDetail
 import com.example.workoutapp.screens.workouts.ExerciseList
 import com.example.workoutapp.screens.workouts.Workout
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
+import com.example.workoutapp.viewmodels.DashboardViewModel
 import com.example.workoutapp.viewmodels.LogInViewModel
 import com.example.workoutapp.viewmodels.PaymentViewModel
+import com.example.workoutapp.viewmodels.ProfileViewModel
 import com.example.workoutapp.viewmodels.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -89,7 +91,8 @@ fun NavHostContainer(navController: NavHostController, modifier: Modifier = Modi
             Payment(navController = navController, viewModel = viewModel)
         }
         composable(Screens.Profile.route) {
-            Profile(navController = navController)
+            val viewModel = hiltViewModel<ProfileViewModel>()
+            Profile(navController = navController, profileViewModel = viewModel)
         }
         composable(Screens.ExerciseList.route) { backStackEntry ->
             val day = backStackEntry.arguments?.getString("day") ?: "Day 1"
@@ -100,7 +103,8 @@ fun NavHostContainer(navController: NavHostController, modifier: Modifier = Modi
             ExerciseDetail(exerciseId = exerciseId)
         }
         composable(Screens.AdminDashboard.route){
-            AdminDashBoard( navController = navController)
+            val viewModel = hiltViewModel<DashboardViewModel>()
+            AdminDashBoard( navController = navController, dashboardViewModel = viewModel)
         }
     }
 }

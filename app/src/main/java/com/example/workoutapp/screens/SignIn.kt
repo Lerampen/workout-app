@@ -1,5 +1,6 @@
 package com.example.workoutapp.screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -70,8 +72,29 @@ fun SignIn(
     var passwordVisible by remember {
         mutableStateOf(false)
     }
-    var isAdmin by remember { mutableStateOf(false) }
+
     val loginState by logInViewModel.loginState.collectAsState()
+    val isAdmin by logInViewModel.isAdmin.collectAsState()
+
+
+
+    LaunchedEffect(loginState, isAdmin) {
+
+
+        if (loginState is Resource.Success ) {
+
+            if (isAdmin){
+                Log.d("SignIn", "Navigating to Admin Dashboard")
+                navController.navigate(Screens.AdminDashboard.route)
+            }else{
+                Log.d("SignIn", "Navigating to Home")
+                navController.navigate(Screens.Home.route)
+            }
+
+
+        }
+    }
+
     val context  = LocalContext.current
     Box(modifier = modifier.fillMaxSize()) {
         Column(
@@ -130,7 +153,7 @@ fun SignIn(
                 shape = RoundedCornerShape(24.dp),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Email,
-                    imeAction = ImeAction.Next
+                    imeAction = ImeAction.Done
                 ),
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 trailingIcon = {
@@ -140,6 +163,7 @@ fun SignIn(
                     }
                     Icon(imageVector = image , contentDescription = "" )
                 },
+
 
 
             )
@@ -166,50 +190,27 @@ fun SignIn(
 
         }
 
-        when (loginState) {
-            is Resource.Loading ->{
-//                show a loading indicator
-                CircularProgressIndicator(
-                    color = Color.Black,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .wrapContentSize(Alignment.Center)
-                )
-            }
-            is Resource.Success ->{
-
-//                You need to check if the logged-in user is an admin and navigate accordingly
-
-                val user = (loginState as Resource.Success).data?.user
-                if (user != null) {
-                    LaunchedEffect(user) {
-                         isAdmin = logInViewModel.checkIfAdmin(user.email)
-                        if (isAdmin) {
-                            navController.navigate(Screens.AdminDashboard.route)
-                        } else {
-                            navController.navigate(Screens.Home.route)
-                        }
-                    }
-                }
-            }
-            is Resource.Error ->{
-                Toast.makeText(context, "Login Failed: ${(loginState as Resource.Error).message}", Toast.LENGTH_SHORT).show()
-            }
-        }
-        if (!isAdmin) { // Only show loading indicator if admin status isn't yet determined
+        // Show progress indicator only when loginState is Resource.Loading
+        if (loginState is Resource.Loading ) {
             CircularProgressIndicator(
-                color = Color.Black,
+                color = Color.Transparent,
                 modifier = Modifier
                     .fillMaxSize()
                     .wrapContentSize(Alignment.Center)
             )
         }
 
+        // Show error message if loginState is Resource.Error
+        if (loginState is Resource.Error) {
+            Toast.makeText(context, "Login Failed: ${(loginState as Resource.Error).message}", Toast.LENGTH_SHORT).show()
+        }
+
+
         Text(
             text = "Don't have an account? Sign up.",
             fontFamily = robotoFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 20.sp,
+            fontSize = 16.sp,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(20.dp)

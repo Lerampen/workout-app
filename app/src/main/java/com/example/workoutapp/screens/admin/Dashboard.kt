@@ -1,5 +1,6 @@
 package com.example.workoutapp.screens.admin
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,19 +31,23 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
+import com.example.workoutapp.viewmodels.DashboardViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AdminDashBoard(modifier: Modifier = Modifier, navController: NavController) {
+fun AdminDashBoard(modifier: Modifier = Modifier, navController: NavController, dashboardViewModel: DashboardViewModel) {
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Admin Dashboard") })
@@ -90,7 +95,12 @@ fun AdminDashBoard(modifier: Modifier = Modifier, navController: NavController) 
                 )
                 DashboardCards(
                     title = "Logout",
-                    onClick = {/** TODO: navigate to user management screen*/ },
+                    onClick = {
+                        dashboardViewModel.signOut()
+                        Toast.makeText(context, "Logged Out Successfully!", Toast.LENGTH_SHORT).show()
+                        navController.navigate("login_screen") // Update with your login screen route
+
+                    },
                     text = "Logout",
                     imageVector = Icons.AutoMirrored.Outlined.Logout
 
@@ -114,7 +124,7 @@ fun DashboardCards(
         elevation = CardDefaults.cardElevation(4.dp),
         modifier = Modifier
             .padding(vertical = 8.dp)
-            .clickable { onClick },
+            .clickable ( onClick = onClick ),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         )
@@ -148,6 +158,7 @@ fun DashboardCards(
 private fun AdminDashboardPreview() {
     WorkoutAppTheme {
         val navController = rememberNavController()
-        AdminDashBoard(navController = navController)
+        val viewModel = hiltViewModel<DashboardViewModel>()
+        AdminDashBoard(navController = navController, dashboardViewModel = viewModel)
     }
 }

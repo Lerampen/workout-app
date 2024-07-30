@@ -29,7 +29,7 @@ class SignUpViewModel @Inject constructor(
             authRepository.registerUser(fname, lname, email, password).collect{result ->
                 _signInState.value = result
                 if (result is Resource.Success){
-                    val user =  User(firstName = fname, lastName = lname, email = email, isAdmin = isAdmin)
+                    val user =  User(firstName = fname, lastName = lname, email = email, admin = isAdmin)
                     saveUserToFireStore(user)
                 }
             }

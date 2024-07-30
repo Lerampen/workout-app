@@ -12,6 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.workoutapp.screens.home.MealsCard
@@ -20,9 +21,10 @@ import com.example.workoutapp.screens.nutrition.CalorieCard
 import com.example.workoutapp.screens.nutrition.MealsSectionNutrition
 import com.example.workoutapp.screens.nutrition.TopSectionNutr
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
+import com.example.workoutapp.viewmodels.ProfileViewModel
 
 @Composable
-fun Profile(navController: NavController, modifier: Modifier = Modifier) {
+fun Profile(navController: NavController, modifier: Modifier = Modifier, profileViewModel: ProfileViewModel) {
     BackHandler {
         navController.popBackStack()
     }
@@ -36,7 +38,7 @@ fun Profile(navController: NavController, modifier: Modifier = Modifier) {
             .padding(paddingValues)
             ){
             ProfileImage()
-            MidSection()
+            MidSection(navController = navController, profileViewModel = profileViewModel )
         }
 
     }
@@ -47,6 +49,7 @@ fun Profile(navController: NavController, modifier: Modifier = Modifier) {
 private fun ProfilePreview() {
     WorkoutAppTheme {
         val navController = rememberNavController()
-        Profile(navController = navController)
+        val viewModel = hiltViewModel<ProfileViewModel>()
+        Profile(navController = navController, profileViewModel = viewModel)
     }
 }

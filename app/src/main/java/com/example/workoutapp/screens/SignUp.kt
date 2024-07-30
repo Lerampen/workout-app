@@ -225,7 +225,7 @@ fun SignUp(
                 Text("Register as Admin")
             }
 
-            Spacer(modifier = modifier.height(16.dp))
+            Spacer(modifier = modifier.height(4.dp))
             Button(
                 onClick = {
 //                    save the user details on firebase
@@ -241,7 +241,7 @@ fun SignUp(
                 shape = RoundedCornerShape(24.dp)
             ) {
                 Text(
-                    text = "Sign In", fontFamily = robotoFontFamily, fontWeight = FontWeight.Medium,
+                    text = "Sign Up", fontFamily = robotoFontFamily, fontWeight = FontWeight.Medium,
                     fontSize = 24.sp
                 )
 
@@ -285,7 +285,7 @@ fun SignUp(
             text = "Already have an account? Sign in.",
             fontFamily = robotoFontFamily,
             fontWeight = FontWeight.Medium,
-            fontSize = 20.sp,
+            fontSize = 16.sp,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(20.dp)
