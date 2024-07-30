@@ -67,7 +67,10 @@ fun AdminDashBoard(modifier: Modifier = Modifier, navController: NavController, 
                     )
                 DashboardCards(
                     title = "User Management",
-                    onClick = {/** TODO: navigate to user management screen*/ },
+                    onClick = {
+                        Toast.makeText(context, "Navigating to  user management screen!", Toast.LENGTH_SHORT).show()
+                        navController.navigate("user_management") // Update with your login screen route
+                        },
                     text = "Add User",
                     imageVector = Icons.Outlined.Person
 

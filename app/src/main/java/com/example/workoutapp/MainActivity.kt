@@ -18,6 +18,7 @@ import com.example.workoutapp.navigation.Screens
 import com.example.workoutapp.screens.SignIn
 import com.example.workoutapp.screens.SignUp
 import com.example.workoutapp.screens.admin.AdminDashBoard
+import com.example.workoutapp.screens.admin.UseManagementScreen
 import com.example.workoutapp.screens.home.Home
 import com.example.workoutapp.screens.nutrition.Nutrition
 import com.example.workoutapp.screens.payment.Payment
@@ -31,6 +32,7 @@ import com.example.workoutapp.viewmodels.LogInViewModel
 import com.example.workoutapp.viewmodels.PaymentViewModel
 import com.example.workoutapp.viewmodels.ProfileViewModel
 import com.example.workoutapp.viewmodels.SignUpViewModel
+import com.example.workoutapp.viewmodels.UsersMgmtViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -105,6 +107,10 @@ fun NavHostContainer(navController: NavHostController, modifier: Modifier = Modi
         composable(Screens.AdminDashboard.route){
             val viewModel = hiltViewModel<DashboardViewModel>()
             AdminDashBoard( navController = navController, dashboardViewModel = viewModel)
+        }
+        composable(Screens.UserManagement.route){
+            val viewModel = hiltViewModel<UsersMgmtViewModel>()
+            UseManagementScreen( navController = navController, viewModel = viewModel)
         }
     }
 }

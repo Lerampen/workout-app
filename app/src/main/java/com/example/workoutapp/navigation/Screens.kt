@@ -11,5 +11,7 @@ sealed class Screens(val route:String) {
     data object ExerciseList : Screens("exercise_list/{day}")
     data object ExerciseDetail : Screens("exercise_detail/{exerciseId}")
     data object AdminDashboard : Screens("admin_dashboard")
+   data object  UserManagement: Screens("user_management")
+
 
 }
