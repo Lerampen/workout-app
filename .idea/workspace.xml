@@ -9,13 +9,33 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6feab9a2-6077-45a8-ac72-90c0f695fa34" name="Changes" comment="added ability to sign out a user wher they are an admin or a regular user and ability to redirect admin once logged in to admin Dashboard">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/viewmodels/UsersMgmtViewModel.kt" afterDir="false" />
+    <list default="true" id="6feab9a2-6077-45a8-ac72-90c0f695fa34" name="Changes" comment="added ability to display users on user management screen from fire store and navigation to users Management screen when clicked on the  admin dashboard">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/NutritionDao.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/data/NutritionPlanWithMeals.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/data/Workout.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/data/WorkoutDao.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/repository/NutritionRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/repository/NutritionRepositoryImpl.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/repository/WorkoutRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/repository/WorkoutRepositoryImpl.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/admin/EditUserBottomSheet.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/admin/WorkoutMangement.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/viewmodels/NutritionManagementViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/viewmodels/WorkoutManagementViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/other.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/data/AppDatabase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/data/AppDatabase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/data/Meal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/data/Meal.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/di/AppModules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/di/AppModules.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/navigation/Screens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/navigation/Screens.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/SignIn.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/SignIn.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/SignUp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/SignUp.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/admin/Dashboard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/admin/Dashboard.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/admin/NutritionManagement.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/admin/NutritionManagement.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/admin/UserManagement.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/admin/UserManagement.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/viewmodels/UsersMgmtViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/viewmodels/UsersMgmtViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,10 +90,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Object" />
-        <option value="Kotlin Interface" />
         <option value="Kotlin File" />
         <option value="Kotlin Data Class" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Interface" />
       </list>
     </option>
   </component>
@@ -142,6 +162,7 @@
       <recent name="com.example.workoutapp.screens.payment" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.example.workoutapp.viewmodels" />
       <recent name="com.example.workoutapp.repository" />
       <recent name="com.example.workoutapp.data" />
     </key>
@@ -315,7 +336,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722309124858</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="added ability to display users on user management screen from fire store and navigation to users Management screen when clicked on the  admin dashboard">
+      <option name="closed" value="true" />
+      <created>1722351666692</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1722351666692</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -340,6 +369,7 @@
     <MESSAGE value="added feature to add payments to db" />
     <MESSAGE value="added admin ui and firebase and firestore" />
     <MESSAGE value="added ability to sign out a user wher they are an admin or a regular user and ability to redirect admin once logged in to admin Dashboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="added ability to sign out a user wher they are an admin or a regular user and ability to redirect admin once logged in to admin Dashboard" />
+    <MESSAGE value="added ability to display users on user management screen from fire store and navigation to users Management screen when clicked on the  admin dashboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="added ability to display users on user management screen from fire store and navigation to users Management screen when clicked on the  admin dashboard" />
   </component>
 </project>

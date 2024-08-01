@@ -20,6 +20,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.workoutapp.R
 import com.example.workoutapp.data.Meal
+import com.example.workoutapp.data.MealTypes
 import com.example.workoutapp.screens.home.MealsCard
 import com.example.workoutapp.screens.home.sampleMeal
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
@@ -64,7 +65,7 @@ fun Nutrition(
             val selectedMealType = mealsTypes.value  // Accessing the List<String> inside MutableState
 
             items(meals.filter {  meal ->
-                selectedMealType.contains(meal.mealType) }){ meal ->
+                selectedMealType.contains(meal.type.name) }){ meal ->
                 MealsCard(meal = meal)
             }
             item {
@@ -97,8 +98,8 @@ private fun NutritionPreview() {
     WorkoutAppTheme {
         val sampleMeals = listOf(
             sampleMeal(),
-            sampleMeal().copy(mealType = "Lunch", mealName = "Salad", calories = 250, imageResourceId = R.drawable.pexels_nicola_barts_7936730),
-            sampleMeal().copy(mealType = "Dinner", mealName = "Ramen", calories = 500, imageResourceId = R.drawable.pexels_nicola_barts_7936744)
+            sampleMeal().copy(type = MealTypes.LUNCH, mealName = "Salad", calories = 250, imageResourceId = R.drawable.pexels_nicola_barts_7936730),
+            sampleMeal().copy(type = MealTypes.DINNER, mealName = "Ramen", calories = 500, imageResourceId = R.drawable.pexels_nicola_barts_7936744)
         )
         val viewModel = hiltViewModel<NutritionViewModel>().apply {
             setSampleMeals(sampleMeals)

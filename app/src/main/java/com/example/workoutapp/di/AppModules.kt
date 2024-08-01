@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.example.workoutapp.data.AppDatabase
 import com.example.workoutapp.data.MealDao
+import com.example.workoutapp.data.NutritionDao
 import com.example.workoutapp.data.PaymentDao
+import com.example.workoutapp.data.WorkoutDao
 import com.example.workoutapp.repository.AuthRepository
 import com.example.workoutapp.repository.AuthRepositoryImpl
 import com.example.workoutapp.repository.PaymentRepository
@@ -41,6 +43,16 @@ class AppModules {
     @Singleton
     fun providePaymentDao(db : AppDatabase) : PaymentDao{
         return db.paymentDao()
+    }
+    @Provides
+    @Singleton
+    fun provideWorkoutDao(db : AppDatabase) : WorkoutDao {
+        return db.workoutDao()
+    }
+    @Provides
+    @Singleton
+    fun provideNutritionDao(db : AppDatabase) : NutritionDao {
+        return db.nutritionDao()
     }
 
 

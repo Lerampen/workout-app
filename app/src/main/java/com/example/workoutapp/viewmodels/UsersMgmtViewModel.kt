@@ -48,7 +48,16 @@ class UsersMgmtViewModel @Inject constructor(
         viewModelScope.launch {
             firestore.collection("users").document(user.email).delete().await()
             fetchUsersFromFireStore() // Refresh the list after deletion
+            Log.e("UserMgmtViewModel", "Deleted user")
+
         }
     }
+    fun updateUser(user: User) {
+        viewModelScope.launch {
+            firestore.collection("users").document(user.email).set(user).await()
+            fetchUsersFromFireStore() // Refresh the list after update
+        }
+    }
+
 
 }

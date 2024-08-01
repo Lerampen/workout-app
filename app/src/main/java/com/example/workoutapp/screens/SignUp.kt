@@ -107,6 +107,7 @@ fun SignUp(
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color.White,
                     focusedIndicatorColor = Color.Black,
+                    focusedTextColor = Color.Black,
                     cursorColor = Color.Black
                 ),
                 shape = RoundedCornerShape(24.dp),
@@ -128,6 +129,7 @@ fun SignUp(
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color.White,
                     focusedIndicatorColor = Color.Black,
+                    focusedTextColor = Color.Black,
                     cursorColor = Color.Black
                 ),
                 shape = RoundedCornerShape(24.dp),
@@ -149,6 +151,7 @@ fun SignUp(
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color.White,
                     focusedIndicatorColor = Color.Black,
+                    focusedTextColor = Color.Black,
                     cursorColor = Color.Black
                 ),
                 shape = RoundedCornerShape(24.dp),
@@ -170,6 +173,7 @@ fun SignUp(
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color.White,
                     focusedIndicatorColor = Color.Black,
+                    focusedTextColor = Color.Black,
                     cursorColor = Color.Black
                 ),
                 shape = RoundedCornerShape(24.dp),
@@ -199,6 +203,7 @@ fun SignUp(
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = Color.White,
                     focusedIndicatorColor = Color.Black,
+                    focusedTextColor = Color.Black,
                     cursorColor = Color.Black
                 ),
                 shape = RoundedCornerShape(24.dp),

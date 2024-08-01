@@ -32,6 +32,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.workoutapp.R
 import com.example.workoutapp.data.Meal
+import com.example.workoutapp.data.MealTypes
 import com.example.workoutapp.ui.theme.robotoFontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -146,12 +147,17 @@ fun AddMealPopup(
                     TextButton(
                         onClick = {
                             // Create the meal object
+                            // TODO: debug 
                             val newMeal = Meal(
-                                mealType = mealType,
+                                type =  MealTypes.BREAKFAST,
                                 mealName = mealName,
                                 calories = calories,
                                 timestamp = System.currentTimeMillis(),
-                                imageResourceId = R.drawable.pexels_nicola_barts_7936744
+                                imageResourceId = R.drawable.pexels_nicola_barts_7936744,
+                                planId = 2 ,
+                                carbs = 120 ,
+                                protein = 80,
+                                fat = 100
                             )
 
                             // Pass the meal object to the callback function

@@ -21,13 +21,20 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -42,14 +49,30 @@ import com.example.workoutapp.data.User
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
 import com.example.workoutapp.viewmodels.UsersMgmtViewModel
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UseManagementScreen(
+fun UserManagementScreen(
     viewModel: UsersMgmtViewModel = hiltViewModel(),
     navController: NavController
 ) {
+    val scope = rememberCoroutineScope()
+    var isBottomSheetVisible by rememberSaveable { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = false
+    )
+    var currentUser by remember {
+        mutableStateOf<User?>(null)
+    }
+    
     BackHandler {
-        navController.popBackStack()
+        if (isBottomSheetVisible) {
+          scope.launch { sheetState.hide() }
+              .invokeOnCompletion { isBottomSheetVisible = false }
+        } else{
+            navController.popBackStack()
+        }
     }
     val users by viewModel.users.collectAsState()
     LaunchedEffect(Unit) {
@@ -71,14 +94,39 @@ fun UseManagementScreen(
 
             UserList(
                 users = users,
-                onEditClick = {   /* Handle edit */ },
+                onEditClick = { user ->
+                    currentUser = user
+                    isBottomSheetVisible = true
+                },
                 onDeleteClick = { user -> viewModel.deleteUser(user) }
             )
+            if (isBottomSheetVisible && currentUser != null){
+                ModalBottomSheet(onDismissRequest = {
+                    scope.launch { sheetState.hide() }
+                        .invokeOnCompletion { isBottomSheetVisible = false }
+                }) {
+
+                    EditUserBottomSheet(
+                        user = currentUser!!,
+                        onSaveOnClick = { updatedUser ->
+                            viewModel.updateUser(updatedUser)
+                            scope.launch { sheetState.hide() }
+                                .invokeOnCompletion { isBottomSheetVisible = false }
+                        },
+                        onCancel = {
+                            scope.launch { sheetState.hide() }
+                                .invokeOnCompletion { isBottomSheetVisible = false }
+                        }
+                    )
+
+                    }
+                }
+            }
 
         }
 
     }
-}
+
 
 // TODO: include a top app bar 
 @Composable
@@ -145,8 +193,14 @@ fun TopbarUser(modifier: Modifier = Modifier,navController: NavController) {
 
 // TODO: a card for the users
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserCard(user: User, onEditClick : () -> Unit, onDeleteClick : () -> Unit) {
+fun UserCard(
+    user: User,
+    onEditClick: () -> Unit,
+    onDeleteClick: () -> Unit
+) {
+   
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -203,7 +257,7 @@ fun UserCard(user: User, onEditClick : () -> Unit, onDeleteClick : () -> Unit) {
 private fun UserManagementScreenPreview() {
     WorkoutAppTheme {
         val navController = rememberNavController()
-        UseManagementScreen(navController = navController)
+        UserManagementScreen(navController = navController)
     }
 }
 

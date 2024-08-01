@@ -17,6 +17,7 @@ import androidx.compose.material.icons.outlined.FitnessCenter
 import androidx.compose.material.icons.outlined.Logout
 import androidx.compose.material.icons.outlined.Payments
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Restaurant
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -77,10 +78,19 @@ fun AdminDashBoard(modifier: Modifier = Modifier, navController: NavController, 
                 )
                 DashboardCards(
                     title = "Workout Management",
-                    onClick = {/** TODO: navigate to user management screen*/ },
+                    onClick = {
+                        Toast.makeText(context, "Navigating to  workout management screen!", Toast.LENGTH_SHORT).show()
+                        navController.navigate("workout_management")
+                              },
                     text = " Add Workouts",
                     imageVector = Icons.Outlined.FitnessCenter
 
+                )
+                DashboardCards(
+                    title = "Nutrition Management",
+                    onClick = { navController.navigate("nutrition_management") },
+                    text = "Manage Nutrition Plans",
+                    imageVector = Icons.Outlined.Restaurant
                 )
                 DashboardCards(
                     title = "Payment Management",

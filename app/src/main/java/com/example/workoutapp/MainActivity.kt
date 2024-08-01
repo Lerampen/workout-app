@@ -18,7 +18,9 @@ import com.example.workoutapp.navigation.Screens
 import com.example.workoutapp.screens.SignIn
 import com.example.workoutapp.screens.SignUp
 import com.example.workoutapp.screens.admin.AdminDashBoard
-import com.example.workoutapp.screens.admin.UseManagementScreen
+import com.example.workoutapp.screens.admin.NutritionManagementScreen
+import com.example.workoutapp.screens.admin.UserManagementScreen
+import com.example.workoutapp.screens.admin.WorkoutManagementScreen
 import com.example.workoutapp.screens.home.Home
 import com.example.workoutapp.screens.nutrition.Nutrition
 import com.example.workoutapp.screens.payment.Payment
@@ -29,6 +31,7 @@ import com.example.workoutapp.screens.workouts.Workout
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.viewmodels.DashboardViewModel
 import com.example.workoutapp.viewmodels.LogInViewModel
+import com.example.workoutapp.viewmodels.NutritionManagementViewModel
 import com.example.workoutapp.viewmodels.PaymentViewModel
 import com.example.workoutapp.viewmodels.ProfileViewModel
 import com.example.workoutapp.viewmodels.SignUpViewModel
@@ -110,7 +113,14 @@ fun NavHostContainer(navController: NavHostController, modifier: Modifier = Modi
         }
         composable(Screens.UserManagement.route){
             val viewModel = hiltViewModel<UsersMgmtViewModel>()
-            UseManagementScreen( navController = navController, viewModel = viewModel)
+            UserManagementScreen( navController = navController, viewModel = viewModel)
+        }
+        composable(Screens.WorkoutManagement.route) {
+            WorkoutManagementScreen(navController)
+        }
+        composable(Screens.NutritionManagement.route) {
+            val viewModel = hiltViewModel<NutritionManagementViewModel>()
+            NutritionManagementScreen(navController,viewModel)
         }
     }
 }

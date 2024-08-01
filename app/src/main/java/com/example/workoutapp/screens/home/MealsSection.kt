@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.workoutapp.R
 import com.example.workoutapp.data.Meal
+import com.example.workoutapp.data.MealTypes
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
 
@@ -97,7 +98,7 @@ fun MealsCard (meal : Meal, modifier: Modifier = Modifier) {
                 )
                 // TODO: min & Exercise
                 Text(
-                    text =  "Type: ${meal.mealType}",
+                    text =  "Type: ${meal.type}",
                     fontWeight = FontWeight.Normal,
                     fontFamily = robotoFontFamily,
                     fontSize = 16.sp
@@ -110,11 +111,15 @@ fun MealsCard (meal : Meal, modifier: Modifier = Modifier) {
 fun sampleMeal(): Meal {
     return Meal(
         mealId = 2,
-        mealType = "Breakfast",
+        type = MealTypes.BREAKFAST,
         mealName = "Pancakes",
         calories = 350,
         timestamp = System.currentTimeMillis(),
-        imageResourceId = R.drawable.pexels_nicola_barts_7936744
+        imageResourceId = R.drawable.pexels_nicola_barts_7936744,
+        planId = 2,
+        carbs = 100,
+        protein = 80 ,
+        fat = 20
     // Sample drawable resource
     )
 }
