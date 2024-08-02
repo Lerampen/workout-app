@@ -22,5 +22,11 @@ interface WorkoutDao {
     @Delete
     suspend fun deleteWorkout(workout: Workout)
 
+    @Query(" SELECT * FROM workouts \n" +
+            "        WHERE day LIKE '%' || :query || '%' \n" +
+            "        OR duration LIKE '%' || :query || '%'\n" +
+            "        OR exerciseCount LIKE '%' || :query || '%'")
+    fun searchWorkouts(query: String): Flow<List<Workout>>
+
 
 }

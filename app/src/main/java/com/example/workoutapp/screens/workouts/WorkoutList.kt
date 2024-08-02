@@ -16,8 +16,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -59,7 +61,7 @@ fun ExerciseCard(day: String, onClick : () -> Unit, modifier: Modifier = Modifie
 
     Card(
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(8.dp),
+        elevation = CardDefaults.cardElevation(4.dp),
         modifier = modifier
             .padding(16.dp)
             .fillMaxWidth()
@@ -69,7 +71,9 @@ fun ExerciseCard(day: String, onClick : () -> Unit, modifier: Modifier = Modifie
         // TODO: Image
         Row(modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp)){
+            .padding(horizontal = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+            ){
             Image(
                 painter = painterResource(id = R.drawable.pexels_ketut_subiyanto_5038833),
                 contentDescription = null,
@@ -89,9 +93,10 @@ fun ExerciseCard(day: String, onClick : () -> Unit, modifier: Modifier = Modifie
                 )
                 // TODO: min & Exercise
                 Text(
-                    text = "10 Min . 10 Exercise",
+                    text = "10 Min • 10 Exercise",
                     fontWeight = FontWeight.Normal,
                     fontFamily = robotoFontFamily,
+                    style = MaterialTheme.typography.bodyMedium,
                     fontSize = 16.sp
                 )
             }

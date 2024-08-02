@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -45,7 +46,12 @@ import com.example.workoutapp.ui.theme.robotoFontFamily
 import com.example.workoutapp.viewmodels.PaymentViewModel
 
 @Composable
-fun PaymentContent(modifier: Modifier, paymentViewModel: PaymentViewModel = hiltViewModel()) {
+fun PaymentContent(
+    modifier: Modifier,
+    paymentViewModel: PaymentViewModel = hiltViewModel(),
+    showPaymentSelection : Boolean,
+    onHidePaymentSelection : () -> Unit
+) {
 
     LaunchedEffect(Unit) {
         paymentViewModel.getAllPayments()
@@ -72,26 +78,20 @@ fun PaymentContent(modifier: Modifier, paymentViewModel: PaymentViewModel = hilt
         mutableStateOf("")
     }
 
-    val payments = listOf(
-        Payments("2024-07-01", "$50.00", "Credit Card"),
-        Payments("2024-07-11", "$75.00", "Credit Card"),
-        Payments("2024-07-21", "$100.00", "Debit Card"),
-        Payments("2024-06-21", "$110.00", "Debit Card")
 
-
-    )
     val allPayments by paymentViewModel.allPayments.collectAsState()
-    Box(modifier = modifier.fillMaxSize().padding(16.dp)) {
+    Box(modifier = modifier
+        .fillMaxSize()
+        .padding(16.dp)) {
 
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-             ,
-
         ) {
             PaymentList(payments = allPayments, Modifier.padding(bottom = 16.dp))
             Spacer(modifier = Modifier.height(12.dp))
+            if (showPaymentSelection) {
             PaymentMethodsSelection(
                 paymentMethod = paymentMethod,
                 onPaymentMethodChange = { paymentMethod = it },
@@ -121,9 +121,11 @@ fun PaymentContent(modifier: Modifier, paymentViewModel: PaymentViewModel = hilt
                 phoneNumber = if (paymentMethod == "Mpesa") phoneNumber.toIntOrNull() else null
             ) { payment ->
                 paymentViewModel.insert(payment)
+                onHidePaymentSelection()
             }
             Spacer(modifier = modifier.height(16.dp))
             SecurePaymentText()
+        }
         }
     }
 }
@@ -267,15 +269,17 @@ fun PaymentButton(
 
         ).show()
     },
-        modifier = Modifier.fillMaxWidth(),
-        colors = ButtonDefaults.buttonColors(containerColor = Color.Black)
+        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
+        shape = RoundedCornerShape(8.dp)
         ) {
 
         Text(
             text = "Pay Now",
             fontFamily = robotoFontFamily,
             fontSize = 16.sp,
-            fontWeight = FontWeight.Medium
+            style = MaterialTheme.typography.bodySmall,
+            color = Color.White
         )
     }
 }
@@ -399,7 +403,14 @@ fun CreditOrDebitCardForm(
 @Composable
 private fun PaymentContentPreview() {
     WorkoutAppTheme {
-        PaymentContent(modifier = Modifier)
+        var showPaymentSelection by remember { mutableStateOf(false) }
+        val viewModel : PaymentViewModel = hiltViewModel()
+
+        PaymentContent(
+            modifier = Modifier,
+            paymentViewModel = viewModel,
+            showPaymentSelection = showPaymentSelection,
+            onHidePaymentSelection = {showPaymentSelection =  false})
     }
 }
 

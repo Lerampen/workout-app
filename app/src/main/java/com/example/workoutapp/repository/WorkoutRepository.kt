@@ -18,4 +18,8 @@ class WorkoutRepository @Inject constructor(private val workoutDao: WorkoutDao) 
     override suspend fun deleteWorkout(workout: Workout) {
         workoutDao.deleteWorkout(workout)
     }
+
+    override fun searchNutritionPlans(query: String): Flow<List<Workout>> =
+        workoutDao.searchWorkouts(query = query)
+
 }

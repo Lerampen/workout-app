@@ -19,6 +19,7 @@ import com.example.workoutapp.screens.SignIn
 import com.example.workoutapp.screens.SignUp
 import com.example.workoutapp.screens.admin.AdminDashBoard
 import com.example.workoutapp.screens.admin.NutritionManagementScreen
+import com.example.workoutapp.screens.admin.PaymentManagementScreen
 import com.example.workoutapp.screens.admin.UserManagementScreen
 import com.example.workoutapp.screens.admin.WorkoutManagementScreen
 import com.example.workoutapp.screens.home.Home
@@ -32,6 +33,7 @@ import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.viewmodels.DashboardViewModel
 import com.example.workoutapp.viewmodels.LogInViewModel
 import com.example.workoutapp.viewmodels.NutritionManagementViewModel
+import com.example.workoutapp.viewmodels.PaymentManagementViewModel
 import com.example.workoutapp.viewmodels.PaymentViewModel
 import com.example.workoutapp.viewmodels.ProfileViewModel
 import com.example.workoutapp.viewmodels.SignUpViewModel
@@ -121,6 +123,10 @@ fun NavHostContainer(navController: NavHostController, modifier: Modifier = Modi
         composable(Screens.NutritionManagement.route) {
             val viewModel = hiltViewModel<NutritionManagementViewModel>()
             NutritionManagementScreen(navController,viewModel)
+        }
+        composable(Screens.PaymentManagement.route) {
+            val viewModel = hiltViewModel<PaymentManagementViewModel>()
+            PaymentManagementScreen(navController,viewModel)
         }
     }
 }

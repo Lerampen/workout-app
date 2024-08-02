@@ -28,5 +28,9 @@ class PaymentRepository @Inject constructor(private val paymentDao: PaymentDao):
         return paymentDao.update(payment)
     }
 
+    override fun searchPayments(query: String): Flow<List<Payment>> {
+         return paymentDao.searchPayments(query)
+    }
+
 
 }

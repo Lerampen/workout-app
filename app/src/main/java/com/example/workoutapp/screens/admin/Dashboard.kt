@@ -94,7 +94,7 @@ fun AdminDashBoard(modifier: Modifier = Modifier, navController: NavController, 
                 )
                 DashboardCards(
                     title = "Payment Management",
-                    onClick = {/** TODO: navigate to user management screen*/ },
+                    onClick = { navController.navigate("payment_management") },
                     text = "View Payments",
                     imageVector = Icons.Outlined.Payments
 

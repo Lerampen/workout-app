@@ -78,7 +78,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     //    dependencies for loading an image
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation(libs.coil.compose)
 
 
     implementation(libs.androidx.core.ktx)

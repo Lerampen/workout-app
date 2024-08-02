@@ -10,4 +10,5 @@ interface PaymentRepositoryImpl {
     suspend fun insertPayment(payment: Payment)
     suspend fun deletePayment(payment: Payment)
     suspend fun updatePayment(payment: Payment)
+    fun searchPayments(query: String): Flow<List<Payment>>
 }

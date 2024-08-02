@@ -14,6 +14,8 @@ sealed class Screens(val route:String) {
     data object  UserManagement : Screens("user_management")
     data object  WorkoutManagement : Screens("workout_management")
     data object  NutritionManagement : Screens("nutrition_management")
+    data object  PaymentManagement : Screens("payment_management")
+
 
 
 

@@ -23,4 +23,17 @@ interface PaymentDao {
 
     @Query("Select * from  payments where id = :id")
     fun getPaymentById(id : Int): Flow<Payment>
+
+    @Query("""
+        SELECT * FROM payments 
+        WHERE 
+        LOWER(paymentMethod) LIKE '%' || LOWER(:query) || '%' 
+        OR amount LIKE '%' || :query || '%'
+        OR LOWER(cardNumber) LIKE '%' || LOWER(:query) || '%'
+        OR LOWER(cardHolderName) LIKE '%' || LOWER(:query) || '%'
+        OR LOWER(expiryDate) LIKE '%' || LOWER(:query) || '%'
+        OR LOWER(cvv) LIKE '%' || LOWER(:query) || '%'
+        OR phoneNumber LIKE '%' || :query || '%'
+    """)
+    fun searchPayments(query: String): Flow<List<Payment>>
 }

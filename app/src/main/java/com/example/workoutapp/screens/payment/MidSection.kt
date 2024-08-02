@@ -11,15 +11,21 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.workoutapp.data.Payment
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
+import com.example.workoutapp.viewmodels.PaymentViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -27,7 +33,16 @@ import kotlin.time.toDuration
 
 @Composable
 fun MidSectionPay(modifier: Modifier = Modifier) {
-    PaymentContent(modifier = modifier)
+
+    var showPaymentSelection by remember { mutableStateOf(false) }
+
+    val viewModel : PaymentViewModel = hiltViewModel()
+    PaymentContent(
+        paymentViewModel = viewModel,
+        onHidePaymentSelection = { showPaymentSelection = false },
+        showPaymentSelection = showPaymentSelection,
+        modifier = modifier
+    )
 }
 
 @Preview(showBackground = true)
@@ -59,7 +74,7 @@ fun PaymentItem(payment: Payment) {
 
             Column {
                 Text(
-                    text = "Date: ${dateString}",
+                    text = "Date: $dateString",
                     style = MaterialTheme.typography.bodyLarge,
                     fontSize = 16.sp,
                     fontFamily = robotoFontFamily,

@@ -1,5 +1,6 @@
 package com.example.workoutapp.screens.admin
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -59,6 +60,11 @@ fun WorkoutManagementScreen(
     navController: NavController,
     viewModel: WorkoutManagementViewModel = hiltViewModel()
 ) {
+
+    BackHandler {
+        navController.popBackStack()
+    }
+
     val workouts by viewModel.workouts.collectAsState()
     var showAddEditDialog by remember {
         mutableStateOf(false)
@@ -66,6 +72,8 @@ fun WorkoutManagementScreen(
     var selectedWorkout by remember {
         mutableStateOf<Workout?>(null)
     }
+    var searchQuery by remember { mutableStateOf("") }
+
 
     Scaffold (
         topBar = {
@@ -96,25 +104,43 @@ fun WorkoutManagementScreen(
             }
         }
     ){ paddingValues ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
-            items(workouts) { workout ->
-                AdminWorkoutCard(
-                    workout = workout,
-                    onEditClick = {
-                        selectedWorkout = workout
-                        showAddEditDialog = true
-                    },
-                    onDeleteClick = {
-                        viewModel.deleteWorkout(workout)
-                    }
-                )
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues = paddingValues)) {
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = {
+                    searchQuery = it
+                    viewModel.searchWorkouts(it)
+
+                },
+                label = {
+                    Text(text = "Search Workouts", fontFamily = robotoFontFamily)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            )
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                items(workouts) { workout ->
+                    AdminWorkoutCard(
+                        workout = workout,
+                        onEditClick = {
+                            selectedWorkout = workout
+                            showAddEditDialog = true
+                        },
+                        onDeleteClick = {
+                            viewModel.deleteWorkout(workout)
+                        }
+                    )
+                }
+
+
             }
-
-
         }
         if (showAddEditDialog){
             AddEditWorkoutDialog(
@@ -262,14 +288,22 @@ fun AdminWorkoutCard(workout: Workout, onEditClick: () -> Unit, onDeleteClick: (
                 model = workout.imageUrl,
                 contentDescription = null,
                 modifier = Modifier
-                    .size(60.dp)
+                    .size(88.dp)
                     .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Fit
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column (modifier = Modifier.weight(1f)){
-                Text(text = workout.day, style = MaterialTheme.typography.titleMedium, fontFamily = robotoFontFamily)
-                Text(text = "${workout.duration} min • ${workout.exerciseCount} exercises", fontFamily = robotoFontFamily, style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    text = "Day ${workout.day}",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontFamily = robotoFontFamily
+                )
+                Text(
+                    text = "${workout.duration} Mins • ${workout.exerciseCount} Exercises",
+                    fontFamily = robotoFontFamily,
+                    style = MaterialTheme.typography.bodyMedium
+                )
 
             }
             IconButton(onClick = onEditClick) {
