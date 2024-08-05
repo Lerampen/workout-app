@@ -10,14 +10,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.workoutapp.navigation.BottomNavigationBar
 import com.example.workoutapp.navigation.Screens
 import com.example.workoutapp.screens.SignIn
 import com.example.workoutapp.screens.SignUp
 import com.example.workoutapp.screens.admin.AdminDashBoard
+import com.example.workoutapp.screens.admin.ExerciseManagementScreen
 import com.example.workoutapp.screens.admin.NutritionManagementScreen
 import com.example.workoutapp.screens.admin.PaymentManagementScreen
 import com.example.workoutapp.screens.admin.UserManagementScreen
@@ -101,8 +104,11 @@ fun NavHostContainer(navController: NavHostController, modifier: Modifier = Modi
             val viewModel = hiltViewModel<ProfileViewModel>()
             Profile(navController = navController, profileViewModel = viewModel)
         }
-        composable(Screens.ExerciseList.route) { backStackEntry ->
-            val day = backStackEntry.arguments?.getString("day") ?: "Day 1"
+        composable(
+            route = Screens.ExerciseList.route,
+            arguments = listOf(navArgument("DAY") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val day = backStackEntry.arguments?.getString("day") ?: return@composable
             ExerciseList(day = day, navController = navController)
         }
         composable(Screens.ExerciseDetail.route) { backStackEntry ->
@@ -119,6 +125,17 @@ fun NavHostContainer(navController: NavHostController, modifier: Modifier = Modi
         }
         composable(Screens.WorkoutManagement.route) {
             WorkoutManagementScreen(navController)
+        }
+        composable(
+            route = Screens.ExerciseManagement.route,
+            arguments = listOf(navArgument("workoutId"){ type = NavType.IntType })
+        ) { backStackEntry ->
+            val workoutId =
+                backStackEntry.arguments?.getInt("workoutId") ?: return@composable
+            ExerciseManagementScreen(
+                workoutId = workoutId,
+                onBackClick = { navController.popBackStack() }
+            )
         }
         composable(Screens.NutritionManagement.route) {
             val viewModel = hiltViewModel<NutritionManagementViewModel>()

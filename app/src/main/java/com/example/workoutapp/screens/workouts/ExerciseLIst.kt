@@ -1,6 +1,5 @@
 package com.example.workoutapp.screens.workouts
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,32 +17,42 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.workoutapp.R
-import com.example.workoutapp.navigation.Screens
+import coil.compose.AsyncImage
+import com.example.workoutapp.data.Exercise
 import com.example.workoutapp.ui.theme.robotoFontFamily
+import com.example.workoutapp.viewmodels.ExerciseViewModel
 
 @Composable
-fun ExerciseList(day :String, navController: NavController,modifier: Modifier = Modifier) {
-    val exercises = listOf(
-        Exercise("Exercise 1", R.drawable.pexels_ketut_subiyanto_5038833
-            , 10),
-        Exercise("Exercise 1", R.drawable.pexels_mastercowley_1300526, 10)
+fun ExerciseList(
+   day :String,
+    navController: NavController,
+    viewModel: ExerciseViewModel = hiltViewModel(),
+) {
+    val exercises by viewModel.exercises.collectAsState()
 
-    )
-
-    LazyColumn(modifier = modifier.fillMaxSize()) {
+//    LaunchedEffect(workoutId) {
+//        viewModel.fetchExercisesForWorkout(workoutId = workoutId)
+//    }
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(exercises){ exercise ->
-            ExerciseItem(exercise = exercise, onClick = {
-                navController.navigate("exercise_detail/${exercise.id}")
-            }, modifier = Modifier)
+            ExerciseItem(
+                exercise = exercise,
+                onClick = {
+                    navController.navigate("exercise_detail/${exercise.id}")
+                },
+                modifier = Modifier
+            )
         }
 
     }
@@ -62,8 +71,8 @@ fun ExerciseItem(exercise: Exercise, onClick: () -> Unit, modifier: Modifier) {
         Row(modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 8.dp)) {
-            Image(
-                painter = painterResource(id = exercise.exerciseIllustration),
+            AsyncImage(
+                model = exercise.exerciseIllustration,
                 contentDescription = null,
                 contentScale = ContentScale.Fit,
                 modifier = Modifier

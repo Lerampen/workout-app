@@ -9,14 +9,16 @@ import androidx.room.TypeConverters
     Meal::class,
     Payment::class,
     Workout::class,
+    Exercise::class,
     NutritionPlan::class],
-    version = 4, exportSchema = false)
+    version = 5, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun mealDao(): MealDao
     abstract fun paymentDao(): PaymentDao
     abstract fun  workoutDao(): WorkoutDao
     abstract fun nutritionDao(): NutritionDao
+    abstract fun exerciseDao(): ExerciseDao
 
 
 }

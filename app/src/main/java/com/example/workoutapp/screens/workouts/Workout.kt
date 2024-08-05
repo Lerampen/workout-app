@@ -54,5 +54,5 @@ fun HorizontalList(modifier: Modifier = Modifier) {
 @Composable
 fun ListSection(modifier: Modifier = Modifier, navController: NavController) {
     // TODO: Lazy list section
-    WorkoutList(modifier = modifier, navController = navController)
+    WorkoutList( navController = navController)
 }

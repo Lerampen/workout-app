@@ -3,12 +3,14 @@ package com.example.workoutapp.di
 import android.content.Context
 import androidx.room.Room
 import com.example.workoutapp.data.AppDatabase
+import com.example.workoutapp.data.ExerciseDao
 import com.example.workoutapp.data.MealDao
 import com.example.workoutapp.data.NutritionDao
 import com.example.workoutapp.data.PaymentDao
 import com.example.workoutapp.data.WorkoutDao
 import com.example.workoutapp.repository.AuthRepository
 import com.example.workoutapp.repository.AuthRepositoryImpl
+import com.example.workoutapp.repository.ExerciseRepository
 import com.example.workoutapp.repository.PaymentRepository
 import com.example.workoutapp.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -51,6 +53,11 @@ class AppModules {
     }
     @Provides
     @Singleton
+    fun provideExerciseDao(db : AppDatabase) : ExerciseDao {
+        return db.exerciseDao()
+    }
+    @Provides
+    @Singleton
     fun provideNutritionDao(db : AppDatabase) : NutritionDao {
         return db.nutritionDao()
     }
@@ -60,6 +67,11 @@ class AppModules {
     @Singleton
     fun providePaymentRepository(paymentDao: PaymentDao) : PaymentRepository{
         return PaymentRepository(paymentDao)
+    }
+    @Provides
+    @Singleton
+    fun provideExerciseRepository(exerciseDao: ExerciseDao) : ExerciseRepository{
+        return ExerciseRepository(exerciseDao)
     }
 
     @Singleton

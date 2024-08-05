@@ -20,6 +20,7 @@ import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -51,6 +52,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.workoutapp.data.Workout
+import com.example.workoutapp.navigation.Screens
 import com.example.workoutapp.ui.theme.robotoFontFamily
 import com.example.workoutapp.viewmodels.WorkoutManagementViewModel
 
@@ -135,6 +137,9 @@ fun WorkoutManagementScreen(
                         },
                         onDeleteClick = {
                             viewModel.deleteWorkout(workout)
+                        },
+                        onManageExercisesClick = {
+                            navController.navigate("exercise_management/${workout.id}")
                         }
                     )
                 }
@@ -160,7 +165,11 @@ fun WorkoutManagementScreen(
 }
 
 @Composable
-fun AddEditWorkoutDialog(workout: Workout?, onDismiss: () -> Unit, onSave: (Workout) -> Unit) {
+fun AddEditWorkoutDialog(
+    workout: Workout?,
+    onDismiss: () -> Unit,
+    onSave: (Workout) -> Unit
+) {
 
     var day by remember { mutableStateOf(workout?.day ?: "") }
     var duration by remember { mutableStateOf(workout?.duration?.toString() ?: "") }
@@ -273,7 +282,13 @@ fun AddEditWorkoutDialog(workout: Workout?, onDismiss: () -> Unit, onSave: (Work
 }
 
 @Composable
-fun AdminWorkoutCard(workout: Workout, onEditClick: () -> Unit, onDeleteClick: () -> Unit) {
+fun AdminWorkoutCard(
+    workout: Workout,
+    onEditClick: () -> Unit,
+    onDeleteClick: () -> Unit,
+    onManageExercisesClick: () -> Unit
+
+) {
 
     Card(
         modifier = Modifier
@@ -304,6 +319,9 @@ fun AdminWorkoutCard(workout: Workout, onEditClick: () -> Unit, onDeleteClick: (
                     fontFamily = robotoFontFamily,
                     style = MaterialTheme.typography.bodyMedium
                 )
+                Button(onClick = onManageExercisesClick) {
+                    Text("Manage Exercises")
+                }
 
             }
             IconButton(onClick = onEditClick) {

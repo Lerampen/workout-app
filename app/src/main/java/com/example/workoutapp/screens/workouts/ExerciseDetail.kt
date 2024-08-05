@@ -14,6 +14,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -26,13 +27,23 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.workoutapp.R
+import com.example.workoutapp.data.Exercise
 import com.example.workoutapp.ui.theme.robotoFontFamily
+import com.example.workoutapp.viewmodels.ExerciseViewModel
 import kotlinx.coroutines.delay
 
 @Composable
-fun ExerciseDetail(exerciseId : String,modifier: Modifier = Modifier) {
-    val exercise = getExerciseById(exerciseId)
+fun ExerciseDetail(
+    exerciseId: String,
+    viewModel: ExerciseViewModel = hiltViewModel()
+) {
+    val exercise by viewModel.exercise.collectAsState()
+
+    LaunchedEffect(exerciseId) {
+        viewModel.fetchExerciseById(exerciseId)
+    }
 
 //    Timer State
     var timeLeft by remember {
@@ -58,16 +69,24 @@ fun ExerciseDetail(exerciseId : String,modifier: Modifier = Modifier) {
     fun playAudio(resourceId : Int){
         val mediaPlayer = MediaPlayer.create(context, resourceId)
     mediaPlayer.start()
+    mediaPlayer.setOnCompletionListener {
+        mediaPlayer.release()
+    }
     }
 
     //        Timer Logic inside LaunchedEffect
     LaunchedEffect(isTimerRunning) {
-        while(timeLeft > 0){
-            if (timeLeft == 4){
-                playAudio(R.raw.countdown_sound_effect)
+        if (isTimerRunning) {
+            while (timeLeft > 0) {
+                delay(1000L)
+                timeLeft--
+
+                if (timeLeft == 4) {
+                    playAudio(R.raw.countdown_sound_effect)
+                }
             }
-            delay(1000L)
-            timeLeft--
+            isTimerRunning = false // Stop the timer when it reaches 0
+
         }
 
 
@@ -82,11 +101,18 @@ fun ExerciseDetail(exerciseId : String,modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Exercise : ${exercise.exerciseName}", fontSize = 24.sp, fontWeight = FontWeight.Medium)
+        Text(
+            text = "Exercise : ${exercise?.exerciseName}",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Medium
+        )
         Spacer(modifier = Modifier.height(16.dp))
         Text(text = "Time left: $timeLeft seconds", fontSize = 20.sp)
 
-        Row(modifier = Modifier.padding(12.dp), horizontalArrangement = Arrangement.Center) {
+        Row(
+            modifier = Modifier.padding(12.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
             Button(
                 onClick = {
                     if (!isTimerRunning){
@@ -110,15 +136,17 @@ fun ExerciseDetail(exerciseId : String,modifier: Modifier = Modifier) {
             }
         }
 
-        // TODO: add a start button  / when clicked START THE TIMER
-        // TODO: add a stop button
-        // TODO: add an image for the illustration of the exercise
-        // TODO: add a Circular indicator to show progress of the exercises / time left
+
 //        other exercise detail
     }
 
 }
 
-fun getExerciseById(exerciseId: String): Exercise{
-    return Exercise("Exercise 1", R.drawable.pexels_mastercowley_1300526, 10, id = exerciseId)
+fun getExerciseById(exerciseId: String): Exercise {
+    return Exercise(
+        exerciseName = "Squats",
+        exerciseIllustration = "https://www.pexels.com/photo/woman-doing-squats-5038833/",
+        repetitions = 10,
+        workoutId = 1
+    )
 }

@@ -4,11 +4,14 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.workoutapp.data.Workout
+import com.example.workoutapp.repository.ExerciseRepository
 import com.example.workoutapp.repository.WorkoutRepository
+import com.example.workoutapp.data.Exercise
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -16,11 +19,15 @@ import javax.inject.Inject
 @HiltViewModel
 class WorkoutManagementViewModel @Inject constructor(
     application: Application,
-    private val repository: WorkoutRepository
+    private val repository: WorkoutRepository,
+    private val exerciseRepository: ExerciseRepository
+
 ) : AndroidViewModel(application = application ) {
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery : StateFlow<String> = _searchQuery
+    private val _exercises = MutableStateFlow<List<Exercise>>(emptyList())
+    val exercises: StateFlow<List<Exercise>> = _exercises.asStateFlow()
 
     val workouts : StateFlow<List<Workout>> = combine(
         repository.getAllWorkouts(),
@@ -66,5 +73,31 @@ class WorkoutManagementViewModel @Inject constructor(
     }
     fun searchWorkouts(query : String){
         _searchQuery.value = query
+    }
+
+    fun fetchExercisesForWorkout(workoutId: Int) {
+        viewModelScope.launch {
+            exerciseRepository.getExercisesForWorkout(workoutId).collect {
+                _exercises.value = it
+            }
+        }
+    }
+
+    fun addExercise(exercise: Exercise) {
+        viewModelScope.launch {
+            exerciseRepository.addExercise(exercise)
+        }
+    }
+
+    fun updateExercise(exercise: Exercise) {
+        viewModelScope.launch {
+            exerciseRepository.updateExercise(exercise)
+        }
+    }
+
+    fun deleteExercise(exercise: Exercise) {
+        viewModelScope.launch {
+            exerciseRepository.deleteExercise(exercise)
+        }
     }
 }

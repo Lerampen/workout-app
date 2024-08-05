@@ -19,31 +19,50 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.workoutapp.R
+import com.example.workoutapp.navigation.Screens
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
+import com.example.workoutapp.viewmodels.WorkoutManagementViewModel
+import kotlin.time.Duration
 
 
 @Composable
-fun WorkoutList(navController: NavController, modifier: Modifier = Modifier) {
-    val workouts = listOf("Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10" )
+fun WorkoutList(
+    navController: NavController,
+    viewModel: WorkoutManagementViewModel = hiltViewModel(),
 
-    LazyColumn (modifier = modifier.fillMaxSize()){
-        items(workouts){ day->
-            ExerciseCard(day, onClick = {
-                navController.navigate("exercise_list/$day")
-            })
+) {
+    val workouts by viewModel.workouts.collectAsState(emptyList())
+
+    LazyColumn (modifier = Modifier.fillMaxSize()){
+        items(workouts){ workout->
+            ExerciseCard(
+                day = "Day ${workout.day}",
+                duration = workout.duration,
+                exerciseCount = workout.exerciseCount,
+                imageUrl = workout.imageUrl,
+                onClick = {
+                    navController.navigate(Screens.ExerciseList.route.replace("{day}", workout.day))
+                }
+            )
         }
     }
 }
@@ -57,12 +76,19 @@ private fun WorkoutListPreview() {
 }
 
 @Composable
-fun ExerciseCard(day: String, onClick : () -> Unit, modifier: Modifier = Modifier) {
+fun ExerciseCard(
+    day: String,
+    duration: Int,
+    exerciseCount: Int,
+    imageUrl: String,
+    onClick: () -> Unit,
+
+) {
 
     Card(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(4.dp),
-        modifier = modifier
+        modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()
             .clickable(onClick = onClick) // make the Card clickable
@@ -74,30 +100,35 @@ fun ExerciseCard(day: String, onClick : () -> Unit, modifier: Modifier = Modifie
             .padding(horizontal = 8.dp),
             verticalAlignment = Alignment.CenterVertically
             ){
-            Image(
-                painter = painterResource(id = R.drawable.pexels_ketut_subiyanto_5038833),
-                contentDescription = null,
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(imageUrl)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = "Workout Image",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(88.dp)
                     .clip(RoundedCornerShape(8.dp)),
 
                 )
-            Spacer(modifier = modifier.width(8.dp))
-            Column(verticalArrangement = Arrangement.Center, modifier = modifier.padding(vertical = 16.dp)) { // TODO: Day
+            Spacer(modifier = Modifier.width(8.dp))
+            Column(verticalArrangement = Arrangement.Center, modifier = Modifier.padding(vertical = 16.dp)) { // TODO: Day
                 Text(
                     text = day,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = robotoFontFamily,
                     fontSize = 16.sp
                 )
+//                Text(
+//                    text = "Duration: $duration minutes",
+//                    style = MaterialTheme.typography.bodyMedium
+//                )
                 // TODO: min & Exercise
                 Text(
-                    text = "10 Min • 10 Exercise",
-                    fontWeight = FontWeight.Normal,
+                    text = "$duration Mins • $exerciseCount Exercises",
                     fontFamily = robotoFontFamily,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontSize = 16.sp
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
