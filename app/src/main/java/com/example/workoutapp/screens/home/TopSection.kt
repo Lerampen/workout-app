@@ -31,12 +31,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.workoutapp.R
+import com.example.workoutapp.data.User
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopSection(navController: NavController,modifier: Modifier = Modifier) {
+fun TopSection(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    currentUser: User?
+) {
     TopAppBar(
         // TODO:  Text(text = "Home Screen" , textAlign = TextAlign.Center)
         title = {
@@ -62,7 +67,7 @@ fun TopSection(navController: NavController,modifier: Modifier = Modifier) {
                         fontSize = 12.sp
                     )
                     Text(
-                        text = " Stacy Apeyon \uD83D\uDC4B ",
+                        text = " ${currentUser?.firstName ?: "Guest"} ${currentUser?.lastName} \uD83D\uDC4B ",
                         fontFamily = robotoFontFamily,
                         fontWeight = FontWeight.Medium,
                         fontSize = 12.sp
@@ -84,6 +89,8 @@ private fun TopSectionPreview() {
 
     WorkoutAppTheme{
     val navController = rememberNavController()
-        TopSection(navController)
+        val sampleUser = User(email = "test@example.com", firstName = "John", lastName = "Doe")
+
+        TopSection(navController , currentUser = sampleUser)
     }
 }

@@ -1,6 +1,7 @@
 package com.example.workoutapp.screens.workouts
 
 import android.media.MediaPlayer
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,12 +37,13 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun ExerciseDetail(
-    exerciseId: String,
+    exerciseId: Int,
     viewModel: ExerciseViewModel = hiltViewModel()
 ) {
     val exercise by viewModel.exercise.collectAsState()
 
     LaunchedEffect(exerciseId) {
+        Log.d("ExerciseDetail", "Fetching exercise with ID: $exerciseId")
         viewModel.fetchExerciseById(exerciseId)
     }
 
@@ -147,6 +149,8 @@ fun getExerciseById(exerciseId: String): Exercise {
         exerciseName = "Squats",
         exerciseIllustration = "https://www.pexels.com/photo/woman-doing-squats-5038833/",
         repetitions = 10,
-        workoutId = 1
+        workoutId = 1,
+        workoutDay = "Day 1",
+        id = 1
     )
 }

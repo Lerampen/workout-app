@@ -1,5 +1,6 @@
 package com.example.workoutapp.screens.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,12 +16,18 @@ import androidx.compose.material.icons.automirrored.outlined.DirectionsWalk
 import androidx.compose.material.icons.outlined.FitnessCenter
 import androidx.compose.material.icons.outlined.Restaurant
 import androidx.compose.material.icons.outlined.WaterDrop
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -54,6 +61,9 @@ private fun StatsSectionPreview() {
 }
 @Composable
 fun HomeStats(modifier: Modifier = Modifier) {
+
+    var waterIntake by remember { mutableStateOf("1500 ml") }
+    var stepCount by remember { mutableStateOf("1400 steps") }
 
     Card(
         shape = RoundedCornerShape(8.dp),
@@ -100,14 +110,16 @@ fun HomeStats(modifier: Modifier = Modifier) {
                     label = "Water",
                     progress = 0.65f,
                     icon = Icons.Outlined.WaterDrop,
-                    value = "1500 ml"
+                    value = waterIntake,
+                    onEditClick = {newValue -> waterIntake = newValue}
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 StatItem(
                     label = "Steps",
                     progress = 0.4f,
                     icon = Icons.AutoMirrored.Outlined.DirectionsWalk,
-                    value = "1400 steps"
+                    value = stepCount,
+                    onEditClick = {newValue -> stepCount = newValue}
                 )
             }
         }
@@ -115,7 +127,16 @@ fun HomeStats(modifier: Modifier = Modifier) {
     }
 }
 @Composable
-fun StatItem(label: String, progress : Float, icon : ImageVector, value : String) {
+fun StatItem(
+    label: String,
+    progress: Float,
+    icon: ImageVector,
+    value: String,
+    onEditClick: ((String) -> Unit)? = null
+
+) {
+    var isEditing by remember { mutableStateOf(false) }
+    var tempValue by remember { mutableStateOf(value) }
 
         Column(
             modifier = Modifier.padding(8.dp),
@@ -143,13 +164,33 @@ fun StatItem(label: String, progress : Float, icon : ImageVector, value : String
                     modifier = Modifier.size(32.dp)
                 )
             }
-            Text(
-                text = value,
-                fontSize = 16.sp,
-                color = Color.Black,
-                fontFamily = robotoFontFamily,
-                fontWeight = FontWeight.Medium
-            )
+            if(isEditing){
+
+                OutlinedTextField(
+                    value = tempValue,
+                    onValueChange = { tempValue = it },
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+                Button(
+                    onClick = {
+                        onEditClick?.invoke(tempValue)
+                        isEditing = false
+                    },
+                    modifier = Modifier.padding(top = 8.dp)
+                ) {
+                    Text("Save")
+                }
+            } else{
+                Text(
+                    text = value,
+                    fontSize = 16.sp,
+                    color = Color.Black,
+                    fontFamily = robotoFontFamily,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.clickable { if (onEditClick != null) isEditing = true }
+
+                )
+            }
 
     }
 }

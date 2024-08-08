@@ -8,23 +8,37 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.workoutapp.data.User
 import com.example.workoutapp.screens.payment.PaymentContent
 import com.example.workoutapp.screens.payment.TopSectionPay
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
+import com.example.workoutapp.viewmodels.UsersMgmtViewModel
 
 @Composable
-fun Home(navController: NavController, modifier: Modifier = Modifier) {
+fun Home(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    viewModel: UsersMgmtViewModel = hiltViewModel()
+) {
+    val currentUser by viewModel.currentUser.collectAsState()
 
+    LaunchedEffect(Unit) {
+        viewModel.fetchCurrentUser()
+    }
     BackHandler {
         navController.popBackStack()
     }
     Scaffold(
         topBar = {
-            TopPart(navController = navController)
+            TopPart(navController = navController, currentUser = currentUser)
 
         },
         content = { paddingValues ->
@@ -61,10 +75,10 @@ private fun HomeMergedPreview() {
     }
 }
 @Composable
-fun TopPart(navController: NavController, modifier: Modifier = Modifier) {
+fun TopPart(navController: NavController, currentUser : User?) {
 
 //    therefore the top app bar
-    TopSection(navController = navController)
+    TopSection(navController = navController, currentUser =  currentUser)
 
 }
 

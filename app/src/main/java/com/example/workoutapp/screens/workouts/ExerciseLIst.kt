@@ -41,9 +41,9 @@ fun ExerciseList(
 ) {
     val exercises by viewModel.exercises.collectAsState()
 
-//    LaunchedEffect(workoutId) {
-//        viewModel.fetchExercisesForWorkout(workoutId = workoutId)
-//    }
+    LaunchedEffect(day) {
+        viewModel.fetchExercisesForDay(day = day)
+    }
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(exercises){ exercise ->
             ExerciseItem(

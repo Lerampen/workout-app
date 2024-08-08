@@ -127,6 +127,8 @@ fun AddEditExerciseDialog(
     onSave: (Exercise) -> Unit
 ) {
     var exerciseName by remember { mutableStateOf(exercise?.exerciseName ?: "") }
+    var workoutDay by remember { mutableStateOf(exercise?.workoutDay?: "") }
+
     var exerciseIllustration by remember { mutableStateOf(exercise?.exerciseIllustration ?: "") }
     var repetitions by remember { mutableStateOf(exercise?.repetitions?.toString() ?: "") }
 
@@ -139,6 +141,12 @@ fun AddEditExerciseDialog(
                     value = exerciseName,
                     onValueChange = { exerciseName = it },
                     label = { Text("Exercise Name") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                OutlinedTextField(
+                    value = workoutDay,
+                    onValueChange = { workoutDay = it },
+                    label = { Text("Workout Day") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
@@ -160,10 +168,10 @@ fun AddEditExerciseDialog(
             TextButton(onClick = {
                 onSave(
                     Exercise(
-                        id = exercise?.id ?: UUID.randomUUID().toString(),
                         workoutId = exercise?.workoutId ?: 0, // This will be set correctly when adding
                         exerciseName = exerciseName,
                         exerciseIllustration = exerciseIllustration,
+                        workoutDay = workoutDay,
                         repetitions = repetitions.toIntOrNull() ?: 0
                     )
                 )

@@ -60,7 +60,7 @@ fun WorkoutList(
                 exerciseCount = workout.exerciseCount,
                 imageUrl = workout.imageUrl,
                 onClick = {
-                    navController.navigate(Screens.ExerciseList.route.replace("{day}", workout.day))
+                    navController.navigate("exercise_list/${ workout.day }")
                 }
             )
         }

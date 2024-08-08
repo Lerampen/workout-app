@@ -28,6 +28,8 @@ import com.example.workoutapp.screens.admin.WorkoutManagementScreen
 import com.example.workoutapp.screens.home.Home
 import com.example.workoutapp.screens.nutrition.Nutrition
 import com.example.workoutapp.screens.payment.Payment
+import com.example.workoutapp.screens.profile.BMICalculator
+import com.example.workoutapp.screens.profile.PersonalDetailsScreen
 import com.example.workoutapp.screens.profile.Profile
 import com.example.workoutapp.screens.workouts.ExerciseDetail
 import com.example.workoutapp.screens.workouts.ExerciseList
@@ -104,18 +106,28 @@ fun NavHostContainer(navController: NavHostController, modifier: Modifier = Modi
             val viewModel = hiltViewModel<ProfileViewModel>()
             Profile(navController = navController, profileViewModel = viewModel)
         }
+        composable(Screens.PersonalDetails.route) {
+            PersonalDetailsScreen(navController = navController)
+        }
+        composable(Screens.BMICalculator.route) {
+         BMICalculator(onCalculate = {})
+        }
         composable(
-            route = Screens.ExerciseList.route,
-            arguments = listOf(navArgument("DAY") { type = NavType.StringType })
+            route =  Screens.ExerciseList.route ,
+            arguments = listOf(navArgument("day") { type = NavType.StringType })
         ) { backStackEntry ->
-            val day = backStackEntry.arguments?.getString("day") ?: return@composable
+            val day = backStackEntry.arguments?.getString("day") ?: ""
             ExerciseList(day = day, navController = navController)
         }
-        composable(Screens.ExerciseDetail.route) { backStackEntry ->
-            val exerciseId = backStackEntry.arguments?.getString("exerciseId") ?: "1"
+        composable(
+            route = Screens.ExerciseDetail.route,
+            arguments = listOf(navArgument("exerciseId"){type = NavType.StringType})
+            ) { backStackEntry ->
+            val exerciseId = backStackEntry.arguments?.getInt("exerciseId") ?: 0
             ExerciseDetail(exerciseId = exerciseId)
         }
-        composable(Screens.AdminDashboard.route){
+        composable(route = Screens.AdminDashboard.route,
+            ){
             val viewModel = hiltViewModel<DashboardViewModel>()
             AdminDashBoard( navController = navController, dashboardViewModel = viewModel)
         }

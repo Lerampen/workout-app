@@ -47,13 +47,20 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.workoutapp.R
+import com.example.workoutapp.data.User
+import com.example.workoutapp.navigation.Screens
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
 import com.example.workoutapp.viewmodels.ProfileViewModel
+import com.example.workoutapp.viewmodels.UsersMgmtViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopSectionProf(navController: NavController, modifier: Modifier = Modifier) {
+fun TopSectionProf(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+) {
+
     TopAppBar(
         // TODO:  Text(text = "Workout Screen" , textAlign = TextAlign.Center)
         title = {
@@ -99,7 +106,10 @@ private fun TopSectionProfPreview() {
 }
 
 @Composable
-fun ProfileImage(modifier: Modifier = Modifier) {
+fun ProfileImage(
+    modifier: Modifier = Modifier,
+    currentUser: User?
+    ) {
 
         Row(
             modifier = Modifier
@@ -118,13 +128,13 @@ fun ProfileImage(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.width(16.dp))
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Stacy Apeyon",
+                    text = "${currentUser?.firstName ?: "Guest"} ${currentUser?.lastName}",
                     fontFamily = robotoFontFamily,
                     fontWeight = FontWeight.SemiBold,
                     style = MaterialTheme.typography.headlineSmall
                 )
                 Text(
-                    text = "@apeyon",
+                    text = "${currentUser?.email}",
                     fontFamily = robotoFontFamily,
                     fontSize = 16.sp,
                    fontWeight = FontWeight.Medium
@@ -138,7 +148,7 @@ fun ProfileImage(modifier: Modifier = Modifier) {
 @Composable
 private fun ProfileImagePreview() {
     WorkoutAppTheme {
-        ProfileImage()
+        ProfileImage(currentUser = User(firstName = "Joe", lastName = "Doe", email = "joedoe@email.com"))
     }
 }
 
@@ -195,6 +205,10 @@ fun MidSection(modifier: Modifier = Modifier , navController: NavController, pro
                 fontFamily = robotoFontFamily,
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
+                modifier = Modifier.clickable {
+                    navController.navigate(Screens.PersonalDetails.route)
+
+                }
             )
         }
 

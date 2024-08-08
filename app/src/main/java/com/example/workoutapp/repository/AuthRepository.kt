@@ -1,6 +1,7 @@
 package com.example.workoutapp.repository
 
 import com.example.workoutapp.data.Resource
+import com.example.workoutapp.data.User
 import com.google.firebase.auth.AuthResult
 import kotlinx.coroutines.flow.Flow
 
@@ -17,4 +18,5 @@ interface AuthRepository {
     fun registerUser(fname : String, lname : String, email : String, password : String) : Flow<Resource<AuthResult>>
     fun loginUser(email: String, password: String): Flow<Resource<AuthResult>>
     fun signOut()
+    fun getCurrentUser() : Flow<Resource<User?>>
 }

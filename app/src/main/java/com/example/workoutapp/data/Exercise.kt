@@ -6,8 +6,9 @@ import java.util.UUID
 @Entity(tableName = "exercises")
 data class Exercise(
     @PrimaryKey(autoGenerate = false)
-    val id: String = UUID.randomUUID().toString(),
+    val id: Int = 0,
     val exerciseName: String,
+    val workoutDay: String,
     val exerciseIllustration: String,
     val workoutId :  Int, // Reference to the Workout
     val repetitions: Int,

@@ -46,4 +46,25 @@ class AuthRepositoryImpl @Inject constructor(
     override fun signOut() {
         firebaseAuth.signOut()
     }
+
+    override fun getCurrentUser(): Flow<Resource<User?>> {
+        val currentUser = firebaseAuth.currentUser
+        return if(currentUser != null){
+            flow {
+                emit(value = Resource.Loading())
+                val userSnapshot =
+                    currentUser.email?.let { firestore.collection("users").document(currentUser.email ?: "").get().await() }
+                val user = userSnapshot?.toObject(User::class.java)
+                emit(Resource.Success(data = user))
+            }.catch {
+                emit(value = Resource.Error(it.message.toString()))
+
+            }
+        }else{
+            flow {
+                emit(Resource.Success(data = null))
+            }
+        }
+    }
+
 }
