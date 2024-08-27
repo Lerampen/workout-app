@@ -67,7 +67,7 @@ fun AddMealPopup(
             shadowElevation = 8.dp
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(text = "Add nem meal", fontFamily = robotoFontFamily, fontWeight = FontWeight.SemiBold)
+                Text(text = "Add new meal", fontFamily = robotoFontFamily, fontWeight = FontWeight.SemiBold)
                 Spacer(modifier = Modifier.height(8.dp))
 
 //                Meal Name Input

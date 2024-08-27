@@ -25,6 +25,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -62,8 +63,10 @@ private fun StatsSectionPreview() {
 @Composable
 fun HomeStats(modifier: Modifier = Modifier) {
 
-    var waterIntake by remember { mutableStateOf("1500 ml") }
-    var stepCount by remember { mutableStateOf("1400 steps") }
+    var waterIntake by remember { mutableIntStateOf(1500 ) } // in milliliters
+    var stepCount by remember { mutableIntStateOf(1400) } // in steps
+    val waterGoal = 2000 // Set a goal for water intake (e.g., 2000 ml 2 litres)
+    val stepGoal = 10000 // Set a goal for step count (e.g., 10000 steps)
 
     Card(
         shape = RoundedCornerShape(8.dp),
@@ -108,18 +111,22 @@ fun HomeStats(modifier: Modifier = Modifier) {
             {
                 StatItem(
                     label = "Water",
-                    progress = 0.65f,
+                    progress = waterIntake / waterGoal.toFloat(),
                     icon = Icons.Outlined.WaterDrop,
-                    value = waterIntake,
-                    onEditClick = {newValue -> waterIntake = newValue}
+                    value = " $waterIntake ml",
+                    onEditClick = { newValue ->
+                        waterIntake = newValue.toIntOrNull() ?: waterIntake
+                    }
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 StatItem(
                     label = "Steps",
-                    progress = 0.4f,
+                    progress = stepCount / stepGoal.toFloat(),
                     icon = Icons.AutoMirrored.Outlined.DirectionsWalk,
-                    value = stepCount,
-                    onEditClick = {newValue -> stepCount = newValue}
+                    value = "$stepCount steps",
+                    onEditClick = { newValue ->
+                        stepCount = newValue.toIntOrNull() ?: stepCount
+                    }
                 )
             }
         }

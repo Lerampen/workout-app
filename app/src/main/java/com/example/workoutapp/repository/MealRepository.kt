@@ -2,6 +2,7 @@ package com.example.workoutapp.repository
 
 import com.example.workoutapp.data.MealDao
 import com.example.workoutapp.data.Meal
+import com.example.workoutapp.data.MealTypes
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -15,6 +16,11 @@ class MealRepository @Inject constructor(private  val mealDao: MealDao) : MealRe
     override suspend fun insertMeal(meal: Meal) {
         return mealDao.insertMeal(meal)
     }
+
+    fun getSuggestedMealsByType(type: MealTypes): Flow<List<Meal>> {
+        return mealDao.getMealsByType(type)  // Collecting the flow to get the list
+    }
+
 
     override suspend fun deleteMeal(meal: Meal) {
         return mealDao.deleteMeal(meal)

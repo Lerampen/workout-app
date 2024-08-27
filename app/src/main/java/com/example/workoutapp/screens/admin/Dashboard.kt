@@ -2,14 +2,20 @@ package com.example.workoutapp.screens.admin
 
 import android.widget.Toast
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Logout
@@ -54,70 +60,82 @@ fun AdminDashBoard(modifier: Modifier = Modifier, navController: NavController, 
             TopAppBar(title = { Text("Admin Dashboard") })
         },
         content = { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues = paddingValues,)
+            /** TODO: navigate to user management screen*/
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.fillMaxSize().padding(paddingValues)
+
             ) {
-                Text(
-                    text = "Welcome to the Admin Dashboard",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontFamily = robotoFontFamily,
-                    fontSize = 20.sp
-                    
+               item {
+                   DashboardCards(
+                       title = "User Management",
+                       onClick = {
+                           Toast.makeText(context, "Navigating to  user management screen!", Toast.LENGTH_SHORT).show()
+                           navController.navigate("user_management") // Update with your login screen route
+                       },
+                       text = "Add User",
+                       imageVector = Icons.Outlined.Person
+
+                   )
+               }
+               item {
+                   DashboardCards(
+                       title = "Workout Management",
+                       onClick = {
+                           Toast.makeText(context, "Navigating to  workout management screen!", Toast.LENGTH_SHORT).show()
+                           navController.navigate("workout_management")
+                       },
+                       text = " Add Workouts",
+                       imageVector = Icons.Outlined.FitnessCenter
+
+                   )
+               }
+                item {
+                    DashboardCards(
+                        title = "Nutrition Management",
+                        onClick = { navController.navigate("nutrition_management") },
+                        text = "Manage Nutrition Plans",
+                        imageVector = Icons.Outlined.Restaurant
                     )
-                DashboardCards(
-                    title = "User Management",
-                    onClick = {
-                        Toast.makeText(context, "Navigating to  user management screen!", Toast.LENGTH_SHORT).show()
-                        navController.navigate("user_management") // Update with your login screen route
-                        },
-                    text = "Add User",
-                    imageVector = Icons.Outlined.Person
+                }
+               item{
+                   DashboardCards(
+                       title = "Payment Management",
+                       onClick = { navController.navigate("payment_management") },
+                       text = "View Payments",
+                       imageVector = Icons.Outlined.Payments
 
-                )
-                DashboardCards(
-                    title = "Workout Management",
-                    onClick = {
-                        Toast.makeText(context, "Navigating to  workout management screen!", Toast.LENGTH_SHORT).show()
-                        navController.navigate("workout_management")
-                              },
-                    text = " Add Workouts",
-                    imageVector = Icons.Outlined.FitnessCenter
-
-                )
-                DashboardCards(
-                    title = "Nutrition Management",
-                    onClick = { navController.navigate("nutrition_management") },
-                    text = "Manage Nutrition Plans",
-                    imageVector = Icons.Outlined.Restaurant
-                )
-                DashboardCards(
-                    title = "Payment Management",
-                    onClick = { navController.navigate("payment_management") },
-                    text = "View Payments",
-                    imageVector = Icons.Outlined.Payments
-
-                )
-                DashboardCards(
+                   )
+               }
+                item {
+                    DashboardCards(
                         title = "System Settings",
-                onClick = {/** TODO: navigate to user management screen*/ },
-                    text = "Settings",
-                    imageVector = Icons.Outlined.Settings
+                        onClick = {/** TODO: navigate to user management screen*/ },
+                        text = "Settings",
+                        imageVector = Icons.Outlined.Settings
 
-                )
-                DashboardCards(
-                    title = "Logout",
-                    onClick = {
-                        dashboardViewModel.signOut()
-                        Toast.makeText(context, "Logged Out Successfully!", Toast.LENGTH_SHORT).show()
-                        navController.navigate("login_screen") // Update with your login screen route
+                    )
+                }
 
-                    },
-                    text = "Logout",
-                    imageVector = Icons.AutoMirrored.Outlined.Logout
+                item {
+                    DashboardCards(
+                        title = "Logout",
+                        onClick = {
+                            dashboardViewModel.signOut()
+                            Toast.makeText(context, "Logged Out Successfully!", Toast.LENGTH_SHORT).show()
+                            navController.navigate("login_screen") // Update with your login screen route
 
-                )
+                        },
+                        text = "Logout",
+                        imageVector = Icons.AutoMirrored.Outlined.Logout
+
+                    )
+                }
+
+
             }
         }
 
@@ -136,15 +154,21 @@ fun DashboardCards(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(4.dp),
         modifier = Modifier
-            .padding(vertical = 8.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f)
             .clickable ( onClick = onClick ),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         )
 
     ){
-        Box (contentAlignment = Alignment.Center, modifier = Modifier.padding(16.dp)){
-            Column{
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.padding(16.dp)
+        ){
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.bodyMedium,

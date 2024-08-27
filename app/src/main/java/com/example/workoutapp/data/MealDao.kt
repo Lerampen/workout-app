@@ -13,6 +13,9 @@ interface MealDao {
     @Query("SELECT * FROM meals")
     fun getAllMeals(): Flow<List<Meal>>
 
+    @Query("SELECT * FROM meals WHERE type = :type")
+    fun getMealsByType(type: MealTypes): Flow<List<Meal>>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertMeal(meal: Meal)
 

@@ -12,4 +12,5 @@ interface NutritionRepositoryImpl {
     suspend fun deleteNutritionPlan(plan: NutritionPlanWithMeals)
     fun searchNutritionPlans(query: String): Flow<List<NutritionPlanWithMeals>>
 
+
 }

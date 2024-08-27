@@ -13,6 +13,7 @@ class NutritionRepository @Inject constructor(
     override fun getAllNutritionPlans(): Flow<List<NutritionPlanWithMeals>>
     = nutritionDao.getAllNutritionPlansWithMeals()
 
+
     override suspend fun insertNutritionPlan(plan: NutritionPlan, meals: List<Meal>) {
         val planId = nutritionDao.insertNutritionPlan(plan)
         meals.forEach{ meal ->
