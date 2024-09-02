@@ -38,8 +38,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.workoutapp.ui.theme.WorkoutAppTheme
 import com.example.workoutapp.ui.theme.robotoFontFamily
+import com.example.workoutapp.viewmodels.GoalsViewModel
 
 @Composable
 fun StatsSection(modifier: Modifier = Modifier) {
@@ -61,12 +63,15 @@ private fun StatsSectionPreview() {
     }
 }
 @Composable
-fun HomeStats(modifier: Modifier = Modifier) {
+fun HomeStats(
+    modifier: Modifier = Modifier,
+    goalsViewModel: GoalsViewModel = viewModel() // Use the same ViewModel instance
+) {
 
     var waterIntake by remember { mutableIntStateOf(1500 ) } // in milliliters
     var stepCount by remember { mutableIntStateOf(1400) } // in steps
-    val waterGoal = 2000 // Set a goal for water intake (e.g., 2000 ml 2 litres)
-    val stepGoal = 10000 // Set a goal for step count (e.g., 10000 steps)
+    val waterGoal = goalsViewModel.waterGoal// Set a goal for water intake (e.g., 2000 ml 2 litres)
+    val stepGoal = goalsViewModel.stepGoal // Set a goal for step count (e.g., 10000 steps)
 
     Card(
         shape = RoundedCornerShape(8.dp),

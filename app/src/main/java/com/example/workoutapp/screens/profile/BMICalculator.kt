@@ -187,16 +187,4 @@ fun BMICalculator(onCalculate: (Double) -> Unit) {
     }
 }
 
-@Composable
-fun PersonalDetailsScreen(navController: NavController) {
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(16.dp)) {
 
-        // Your existing personal details UI
-
-        Button(onClick = { navController.navigate("bmi_calculator") }) {
-            Text("Calculate BMI")
-        }
-    }
-}
