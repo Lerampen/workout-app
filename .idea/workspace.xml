@@ -10,18 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6feab9a2-6077-45a8-ac72-90c0f695fa34" name="Changes" comment="Added a bmi calculator , changed the user name in home screen based on the current logged in user">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/nutrition/NutritionPlanList.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/data/MealDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/data/MealDao.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/repository/MealRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/repository/MealRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/repository/NutritionRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/repository/NutritionRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/repository/NutritionRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/repository/NutritionRepositoryImpl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/admin/Dashboard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/admin/Dashboard.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/home/HomeStats.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/home/HomeStats.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/nutrition/AddMealPopup.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/nutrition/AddMealPopup.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/nutrition/Nutrition.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/screens/nutrition/Nutrition.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/viewmodels/NutritionViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/workoutapp/viewmodels/NutritionViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -370,7 +359,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723105763360</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Added a bmi calculator , changed the user name in home screen based on the current logged in user">
+      <option name="closed" value="true" />
+      <created>1724758544552</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1724758544552</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

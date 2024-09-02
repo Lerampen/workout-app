@@ -29,6 +29,7 @@ import com.example.workoutapp.screens.home.Home
 import com.example.workoutapp.screens.nutrition.Nutrition
 import com.example.workoutapp.screens.payment.Payment
 import com.example.workoutapp.screens.profile.BMICalculator
+import com.example.workoutapp.screens.profile.BmiScreen
 import com.example.workoutapp.screens.profile.PersonalDetailsScreen
 import com.example.workoutapp.screens.profile.Profile
 import com.example.workoutapp.screens.workouts.ExerciseDetail
@@ -110,7 +111,7 @@ fun NavHostContainer(navController: NavHostController, modifier: Modifier = Modi
             PersonalDetailsScreen(navController = navController)
         }
         composable(Screens.BMICalculator.route) {
-         BMICalculator(onCalculate = {})
+         BmiScreen(navController = navController)
         }
         composable(
             route =  Screens.ExerciseList.route ,

@@ -23,7 +23,12 @@ fun BottomNavigationBar(navController: NavController) {
     // List of routes where the bottom navigation should be hidden
     val hideBottomNavRoutes = listOf(
         Screens.Login.route,
-        Screens.SignUp.route
+        Screens.SignUp.route,
+        Screens.AdminDashboard.route,
+        Screens.PaymentManagement.route,
+        Screens.NutritionManagement.route,
+        Screens.WorkoutManagement.route,
+        Screens.UserManagement.route
     )
 
     // Check if the current route is in the list of routes then to hide the bottom navigation
