@@ -375,26 +375,43 @@ fun EditMealDialog(meal: Meal, onDismiss: () -> Unit, onSave: (Meal) -> Unit) {
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(8.dp))
+                var expand by remember {
+                    mutableStateOf(false)
+                }
                 ExposedDropdownMenuBox(
-                    expanded = false,
-                    onExpandedChange = {}
+                    expanded = expand,
+                    onExpandedChange = { expand = it }
                 ) {
                     OutlinedTextField(
                         value = type.name,
-                        onValueChange = {},
-                        readOnly = true,
+                        onValueChange = {newValue ->
+                            // Convert input String to MealTypes enum if valid
+                            MealTypes.entries.find {
+                                it.name == newValue
+                            }?.let {
+                                type = it
+                                expand = true
+                            }
+
+                                        },
+                        readOnly = false,
                         label = { Text("Meal Type") },
-                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = false) },
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expand) },
                         modifier = Modifier.menuAnchor()
                     )
                     ExposedDropdownMenu(
-                        expanded = false,
-                        onDismissRequest = {}
+                        expanded = expand,
+                        onDismissRequest = {
+                            expand = false // Close dropdown when clicked outside
+                        }
                     ) {
-                        MealTypes.values().forEach { mealType ->
+                        MealTypes.entries.forEach { mealType ->
                             DropdownMenuItem(
                                 text = { Text(mealType.name) },
-                                onClick = { type = mealType }
+                                onClick = { type = mealType
+                                expand = false  // close the dropdown
+                                }
+
                             )
                         }
                     }
