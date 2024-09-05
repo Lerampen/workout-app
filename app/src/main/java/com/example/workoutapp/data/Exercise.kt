@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.util.UUID
 @Entity(tableName = "exercises")
 data class Exercise(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val exerciseName: String,
     val workoutDay: String,

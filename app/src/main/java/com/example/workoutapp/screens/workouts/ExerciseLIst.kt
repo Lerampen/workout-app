@@ -1,5 +1,6 @@
 package com.example.workoutapp.screens.workouts
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,9 +14,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowBackIosNew
+import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -41,21 +49,69 @@ fun ExerciseList(
 ) {
     val exercises by viewModel.exercises.collectAsState()
 
+    BackHandler {
+        navController.popBackStack()
+    }
+
     LaunchedEffect(day) {
         viewModel.fetchExercisesForDay(day = day)
     }
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(exercises){ exercise ->
-            ExerciseItem(
-                exercise = exercise,
-                onClick = {
-                    navController.navigate("exercise_detail/${exercise.id}")
-                },
-                modifier = Modifier
-            )
-        }
+    Column(modifier = Modifier.fillMaxSize()) {  // Use Column for testing
 
+        TopbarExerciseList(navController = navController)
+
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            items(exercises){ exercise ->
+                ExerciseItem(
+                    exercise = exercise,
+                    onClick = {
+                        navController.navigate("exercise_detail/${exercise.id}")
+                    },
+                    modifier = Modifier
+                )
+            }
+
+        }
+        
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopbarExerciseList(navController: NavController) {
+    TopAppBar(
+        title = {
+
+            Column(
+                modifier = Modifier
+                    .padding(vertical = 4.dp)
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.Center
+            ) {
+
+                Text(
+                    text = "Exercises List",
+                    fontFamily = robotoFontFamily,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 24.sp
+                )
+            }
+
+
+        },
+        modifier = Modifier,
+        navigationIcon = {
+            IconButton(onClick = { navController.popBackStack() }) {
+                Icon(
+                    imageVector = Icons.Outlined.ArrowBackIosNew,
+                    contentDescription = "Back arrow"
+                )
+            }
+        },
+        actions = {
+            Icon(imageVector = Icons.Outlined.MoreVert, contentDescription = "More option")
+        }
+    )
 }
 
 @Composable

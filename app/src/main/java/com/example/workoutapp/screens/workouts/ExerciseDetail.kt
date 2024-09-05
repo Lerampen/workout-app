@@ -2,19 +2,29 @@ package com.example.workoutapp.screens.workouts
 
 import android.media.MediaPlayer
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowBackIosNew
+import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -33,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.workoutapp.R
 import com.example.workoutapp.data.Exercise
@@ -43,6 +54,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun ExerciseDetail(
     exerciseId: Int,
+    navController: NavController,
     viewModel: ExerciseViewModel = hiltViewModel()
 ) {
     val exercise by viewModel.exercise.collectAsState()
@@ -50,6 +62,9 @@ fun ExerciseDetail(
     LaunchedEffect(exerciseId) {
         Log.d("ExerciseDetail", "Fetching exercise with ID: $exerciseId")
         viewModel.fetchExerciseById(exerciseId)
+    }
+    BackHandler {
+        navController.popBackStack()
     }
 
 //    Timer State
@@ -100,68 +115,123 @@ fun ExerciseDetail(
     }
 
 
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        AsyncImage(
-            model = exercise?.exerciseIllustration,
-            contentDescription = exercise?.exerciseName,
-            contentScale = ContentScale.Fit,
+Scaffold(
+    topBar = { TopbarExercise(navController = navController)},
+    content = {paddingValues ->
+        Column(
             modifier = Modifier
-                .size(200.dp)
-                .clip(RoundedCornerShape(8.dp))
-        )
-
-        Text(
-            text = "Exercise : ${exercise?.exerciseName}",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Medium
-        )
-        Text(
-            text = " ${exercise?.repetitions} : reps",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Medium
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Time left: $timeLeft seconds", fontSize = 20.sp)
-
-        Row(
-            modifier = Modifier.padding(12.dp),
-            horizontalArrangement = Arrangement.Center
+                .fillMaxSize()
+                .padding(paddingValues = paddingValues),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(
-                onClick = {
-                    if (!isTimerRunning){
-                    startTimer()
-                }
-                          },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Green
-                )
+            AsyncImage(
+                model = exercise?.exerciseIllustration,
+                contentDescription = exercise?.exerciseName,
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .size(200.dp)
+                    .clip(RoundedCornerShape(8.dp))
+            )
+
+            Text(
+                text = "Exercise : ${exercise?.exerciseName}",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Medium
+            )
+            Text(
+                text = " ${exercise?.repetitions} : reps",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Medium
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "Time left: $timeLeft seconds", fontSize = 20.sp)
+
+            Row(
+                modifier = Modifier.padding(12.dp),
+                horizontalArrangement = Arrangement.Center
             ) {
-                Text(text = "Start", fontFamily = robotoFontFamily, fontSize = 16.sp, fontWeight = FontWeight.Medium)
+                Button(
+                    onClick = {
+                        if (!isTimerRunning) {
+                            startTimer()
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Green
+                    )
+                ) {
+                    Text(
+                        text = "Start",
+                        fontFamily = robotoFontFamily,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+                Spacer(modifier = Modifier.width(12.dp))
+                Button(
+                    onClick = { stopTimer() },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Red
+                    )
+                ) {
+                    Text(
+                        text = "Stop",
+                        fontFamily = robotoFontFamily,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
             }
-            Spacer(modifier = Modifier.width(12.dp))
-            Button(
-                onClick = { stopTimer() },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Red
-                )
-            ){
-                Text(text = "Stop", fontFamily = robotoFontFamily, fontSize = 16.sp, fontWeight = FontWeight.Medium)
-            }
-        }
 
 
 //        other exercise detail
+        }
     }
+)
+
 
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopbarExercise(navController: NavController) {
+    TopAppBar(
+        title = {
+
+            Column(
+                modifier = Modifier
+                    .padding(vertical = 4.dp)
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.Center
+            ) {
+
+                Text(
+                    text = "Exercises",
+                    fontFamily = robotoFontFamily,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 24.sp
+                )
+            }
+
+
+        },
+        modifier = Modifier,
+        navigationIcon = {
+            IconButton(onClick = { navController.popBackStack() }) {
+                Icon(
+                    imageVector = Icons.Outlined.ArrowBackIosNew,
+                    contentDescription = "Back arrow"
+                )
+            }
+        },
+        actions = {
+            Icon(imageVector = Icons.Outlined.MoreVert, contentDescription = "More option")
+        }
+    )
+}
+
+
 
 fun getExerciseById(exerciseId: String): Exercise {
     return Exercise(
