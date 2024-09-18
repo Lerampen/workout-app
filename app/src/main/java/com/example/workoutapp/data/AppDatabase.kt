@@ -11,7 +11,7 @@ import androidx.room.TypeConverters
     Workout::class,
     Exercise::class,
     NutritionPlan::class],
-    version = 8, exportSchema = false)
+    version = 9, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun mealDao(): MealDao

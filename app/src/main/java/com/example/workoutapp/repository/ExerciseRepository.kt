@@ -1,5 +1,6 @@
 package com.example.workoutapp.repository
 
+import android.util.Log
 import com.example.workoutapp.data.ExerciseDao
 import com.example.workoutapp.data.Exercise
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +25,9 @@ class ExerciseRepository @Inject constructor(
 //        )
     }
 
-    fun getExercisesByDay(day : String) : Flow<List<Exercise>>{
+    suspend fun getExercisesByDay(day : String) : Flow<List<Exercise>>{
+        Log.d("ExerciseRepository", "Querying exercises for day: $day")
+
         return exerciseDao.getExercisesForDay(day = day)
     }
     suspend fun addExercise(exercise: Exercise) {

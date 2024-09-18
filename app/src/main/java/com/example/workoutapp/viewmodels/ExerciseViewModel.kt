@@ -48,10 +48,13 @@ class ExerciseViewModel @Inject constructor(
     fun fetchExercisesForDay(day: String) {
         viewModelScope.launch {
             // Fetch exercises for the given day from your data source
+            Log.d("ExerciseRepository", "Querying exercises for day: $day")
+
             exerciseRepository.getExercisesByDay(day).collect { exercises ->
                 // Update _exercises with the fetched data
                 _exercises.value = exercises
-                Log.d("ExerciseViewModel", "Exercises loaded: ")
+                Log.d("ExerciseViewModel", "Exercises loaded: ${exercises.size}")
+
 
             }
         }

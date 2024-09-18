@@ -59,6 +59,9 @@ fun ExerciseList(
     Column(modifier = Modifier.fillMaxSize()) {  // Use Column for testing
 
         TopbarExerciseList(navController = navController)
+        Text("Number of exercises: ${exercises.size}")
+        Text("Querying for day: $day")
+
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(exercises){ exercise ->
