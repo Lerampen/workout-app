@@ -125,25 +125,28 @@ Scaffold(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            AsyncImage(
-                model = exercise?.exerciseIllustration,
-                contentDescription = exercise?.exerciseName,
-                contentScale = ContentScale.Fit,
-                modifier = Modifier
-                    .size(200.dp)
-                    .clip(RoundedCornerShape(8.dp))
-            )
 
-            Text(
-                text = "Exercise : ${exercise?.exerciseName}",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Medium
-            )
-            Text(
-                text = " ${exercise?.repetitions} : reps",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Medium
-            )
+
+                 AsyncImage(
+                     model = exercise?.exerciseIllustration ?: "",
+                     contentDescription = exercise?.exerciseName,
+                     contentScale = ContentScale.Fit,
+                     modifier = Modifier
+                         .size(200.dp)
+                         .clip(RoundedCornerShape(8.dp))
+                 )
+
+                 Text(
+                     text = "Exercise : ${exercise?.exerciseName ?: "Loading ..."}",
+                     fontSize = 24.sp,
+                     fontWeight = FontWeight.Medium
+                 )
+                 Text(
+                     text = " Reps: ${exercise?.repetitions} ",
+                     fontSize = 24.sp,
+                     fontWeight = FontWeight.Medium
+                 )
+
             Spacer(modifier = Modifier.height(16.dp))
             Text(text = "Time left: $timeLeft seconds", fontSize = 20.sp)
 

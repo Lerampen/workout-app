@@ -122,7 +122,7 @@ fun NavHostContainer(navController: NavHostController, modifier: Modifier = Modi
         }
         composable(
             route = Screens.ExerciseDetail.route,
-            arguments = listOf(navArgument("exerciseId"){type = NavType.StringType})
+            arguments = listOf(navArgument("exerciseId"){type = NavType.IntType})
             ) { backStackEntry ->
             val exerciseId = backStackEntry.arguments?.getInt("exerciseId") ?: 0
             ExerciseDetail(exerciseId = exerciseId, navController = navController)

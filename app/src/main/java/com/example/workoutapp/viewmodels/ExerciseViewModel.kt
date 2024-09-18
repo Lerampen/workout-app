@@ -38,9 +38,15 @@ class ExerciseViewModel @Inject constructor(
     }
     fun fetchExerciseById(exerciseId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            exerciseRepository.getExerciseById(exerciseId).collect { exercise ->
+            exerciseRepository.getExerciseById(exerciseId).collect { fetchedExercise->
                 withContext(Dispatchers.Main) {
-                    _exercise.value = exercise
+                    if (fetchedExercise != null) {
+                        _exercise.value = fetchedExercise
+                        _exerciseState.value = ExerciseState.Success(fetchedExercise)
+                    }
+                    else {
+                        _exerciseState.value = ExerciseState.Error("Exercise not found")
+                    }
                 }
             }
         }

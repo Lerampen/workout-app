@@ -14,15 +14,7 @@ class ExerciseRepository @Inject constructor(
     }
     fun getExerciseById(exerciseId: Int): Flow<Exercise?> {
         return exerciseDao.getExerciseById(exerciseId = exerciseId)
-//        val exerciseEntity = exerciseDao.getExerciseById(exerciseId)
-//        return Exercise(
-//            id = exerciseEntity.id,
-//            exerciseName = exerciseEntity.exerciseName,
-//            workoutDay = exerciseEntity.workoutDay,
-//            exerciseIllustration = exerciseEntity.exerciseIllustration,
-//            workoutId = exerciseEntity.workoutId,
-//            repetitions = exerciseEntity.repetitions
-//        )
+
     }
 
     suspend fun getExercisesByDay(day : String) : Flow<List<Exercise>>{
